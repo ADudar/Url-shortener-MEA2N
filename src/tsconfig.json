@@ -13,6 +13,12 @@
     "target": "es5",
     "typeRoots": [
       "../node_modules/@types"
-    ]
+    ],
+      "files": [
+      "typings/tsd.d.ts"  ],
+    "filesGlob": [
+    "./src/**/*.ts",
+    "!./node_modules/**/*.ts"
+  ]
   }
 }

@@ -1,0 +1,52 @@
+<h2>
+  Обработка ссылки:
+</h2>
+<form #linkForm="ngForm" (ngSubmit)="getShortUrl()">
+  <input type="url" placeholder="ВСТАВЬТЕ ВАШУ ССЫЛКУ СЮДА" class="form-control" [ngModel]="link.longUrl" name="longUrl" >  <br>
+  <input type="text" placeholder="НАПИШИТЕ ОПИСАНИЕ" class="form-control"  [ngModel]="link.description" name="description" > <br>
+  <input type="text" placeholder="НАПИШИТЕ ТЕГИ" class="form-control"  [ngModel]="link.tags" name="tags">  <br>
+  <button type="submit" class="btn btn-primary" class="form-control">Обработать ссылку</button>
+</form>
+
+
+
+<p *ngIf="main.shortUrl" class="short-text">
+  Короткая ссылка <i class="glyphicon glyphicon-chevron-right"></i>
+  <i class="glyphicon glyphicon-chevron-right"></i>
+  <input type="text" readonly="readonly" value="{{main.shortUrl}}" class="past-short-url" onclick="this.select()"><br/> О
+  ссылке <i class="glyphicon glyphicon-chevron-right"></i>
+  <i class="glyphicon glyphicon-chevron-right"></i>
+  <input type="text" readonly="readonly" value="{{main.aboutLink}}" class="past-short-url" onclick="this.select()">
+</p>
+<br/>
+<table class="table table-hover adaptive-table">
+  <tr>
+    <th> Длинный URL</th>
+    <th> Короткий URL</th>
+    <th> Описание</th>
+    <th> Теги</th>
+    <th> Клики</th>
+    <th> Сведения</th>
+    <th> Изменить</th>
+    <th> Удалить</th>
+  </tr>
+  <tr ng-repeat="link in main.linkz">
+    <td class="s"> {{link.longUrl}}</td>
+    <td><a href="{{link.shortUrl}}"> localhost:8080/{{link.shortUrl}} </a></td>
+    <td> {{link.description}}</td>
+    <td> #{{link.tags}}</td>
+    <td> {{link.clicks}}</td>
+    <td><a href="/about/{{link.shortUrl}}"> details </a></td>
+    <td><a href="/change/{{link._id}}" class="btn btn-success">Изменить</a></td>
+    <td>
+      <button ng-click="main.delete(link._id)" class="btn btn-primary">Удалить</button>
+    </td>
+  </tr>
+</table>
+<div class="row show-hide-message" ng-show="message">
+  <div class="col-sm-6 col-sm-offset-2">
+    <div class="alert alert-info">
+      {{ message }}
+    </div>
+  </div>
+</div>
