@@ -1,49 +1,53 @@
 <h2>
-  Обработка ссылки:
+  Url Shortener
 </h2>
-<form #linkForm="ngForm" (ngSubmit)="getShortUrl()">
-  <input type="url" placeholder="ВСТАВЬТЕ ВАШУ ССЫЛКУ СЮДА" class="form-control" [ngModel]="link.longUrl" name="longUrl" >  <br>
-  <input type="text" placeholder="НАПИШИТЕ ОПИСАНИЕ" class="form-control"  [ngModel]="link.description" name="description" > <br>
-  <input type="text" placeholder="НАПИШИТЕ ТЕГИ" class="form-control"  [ngModel]="link.tags" name="tags">  <br>
-  <button type="submit" class="btn btn-primary" class="form-control">Обработать ссылку</button>
+<form #linkForm="ngForm" (submit)="getShortUrl()">
+  <input required type="url" placeholder="INSERT YOUR LONG URL HERE" class="form-control" [(ngModel)]="link.longUrl" name="longUrl">  <br>
+  <input required type="text" placeholder="WRITE DESCRIPTION" class="form-control" [(ngModel)]="link.description" name="description">  <br>
+  <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="link.tags" name="tags"> <br>
+  <button type="submit" class="btn btn-primary">Shorten</button>
 </form>
-
-
-
-<p *ngIf="main.shortUrl" class="short-text">
-  Короткая ссылка <i class="glyphicon glyphicon-chevron-right"></i>
-  <i class="glyphicon glyphicon-chevron-right"></i>
-  <input type="text" readonly="readonly" value="{{main.shortUrl}}" class="past-short-url" onclick="this.select()"><br/> О
-  ссылке <i class="glyphicon glyphicon-chevron-right"></i>
-  <i class="glyphicon glyphicon-chevron-right"></i>
-  <input type="text" readonly="readonly" value="{{main.aboutLink}}" class="past-short-url" onclick="this.select()">
-</p>
+<br>
+<div class="row" *ngIf="shortedLink">
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="shortUrlInput">
+       Short url <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i>
+      </label>
+      <input id="shortUrlInput" type="text" class="form-control" #shortUrlInput value="{{shortedLink}}" readonly="readonly">
+      <button class="btn btn-secondary" type="button" [class.btn-success]="shortLinkisCopied" [ngxClipboard]="shortUrlInput" [cbContent]="text"
+        (cbOnSuccess)="shortLinkisCopied = true">
+                Copy
+        </button>
+    </div>
+  </form>
+</div>
 <br/>
-<table class="table table-hover adaptive-table">
+<table class="table table-hover adaptive-table" *ngIf="links.length > 0">
   <tr>
-    <th> Длинный URL</th>
-    <th> Короткий URL</th>
-    <th> Описание</th>
-    <th> Теги</th>
-    <th> Клики</th>
-    <th> Сведения</th>
-    <th> Изменить</th>
-    <th> Удалить</th>
+    <th> LONGURL</th>
+    <th> SHORTURL</th>
+    <th> DESCRIPTION</th>
+    <th> TAGS</th>
+    <th> CLICKS</th>
+    <th> ABOUT</th>
+    <th> CHANGE</th>
+    <th> DELETE</th>
   </tr>
-  <tr ng-repeat="link in main.linkz">
-    <td class="s"> {{link.longUrl}}</td>
-    <td><a href="{{link.shortUrl}}"> localhost:8080/{{link.shortUrl}} </a></td>
+  <tr *ngFor="let link of links">
+    <td class=""> {{link.longUrl}}</td>
+    <td><a href="{{link.shortUrl}}">{{link.shortUrl}} </a></td>
     <td> {{link.description}}</td>
-    <td> #{{link.tags}}</td>
+    <td> {{link.tags}}</td>
     <td> {{link.clicks}}</td>
-    <td><a href="/about/{{link.shortUrl}}"> details </a></td>
-    <td><a href="/change/{{link._id}}" class="btn btn-success">Изменить</a></td>
+    <td><a  [routerLink]="['/details', link._id]" > details </a></td>
+    <td><a [routerLink]="['/change', link._id]" class="btn btn-warning">Change</a></td>
     <td>
-      <button ng-click="main.delete(link._id)" class="btn btn-primary">Удалить</button>
+      <button (click)="deleteLink(link._id)" class="btn btn-danger">Delete</button>
     </td>
   </tr>
 </table>
-<div class="row show-hide-message" ng-show="message">
+<div class="row show-hide-message" [hidden]="!message">
   <div class="col-sm-6 col-sm-offset-2">
     <div class="alert alert-info">
       {{ message }}

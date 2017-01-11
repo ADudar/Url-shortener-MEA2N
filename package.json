@@ -22,9 +22,13 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "angular2-jwt": "^0.1.27",
+    "bootstrap4": "0.0.1-security",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "jwt-decode": "^2.1.0",
+    "ngx-clipboard": "^3.0.5",
     "rxjs": "^5.0.1",
+    "tether": "^1.4.0",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
   },

@@ -1,0 +1,12 @@
+<h1>Details url:</h1>
+<div *ngIf="link">
+  <ul>
+    <li>Clicks: {{link.clicks}}</li>
+    <li>Long URL : <a href="{{link.longUrl}}">{{link.longUrl}}</a></li>
+    <li>Short URL: <a href=" {{link.shortUrl}}">{{link.shortUrl}}</a></li>
+    <li>
+      Tags: {{link.tags}}
+    </li>
+    <li>Description: {{link.description}}</li>
+  </ul>
+</div>
