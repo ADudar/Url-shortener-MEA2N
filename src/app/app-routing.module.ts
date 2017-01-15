@@ -9,11 +9,11 @@ import { DetailsComponent } from './components/details/details.component';
 
 const routes: Routes = [
   { path: '',       component: LoginComponent  },
-  { path: 'login',  component: LoginComponent  },
   { path: 'signup', component: SignupComponent },
+  { path: 'login',  component: LoginComponent  },
+  { path: 'home',   component: HomeComponent },
   { path: 'change/:_id', component: ChangeComponent },
   { path: 'details/:_id',   component: DetailsComponent },
-  { path: 'home',   component: HomeComponent },
   { path: '**',     component: LoginComponent  }
 ];
 

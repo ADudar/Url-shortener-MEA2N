@@ -19,6 +19,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ChangeComponent } from './components/change/change.component';
 import { LinkService } from './services/link.service';
 import { DetailsComponent } from './components/details/details.component';
+import { LinksComponent } from './components/links/links.component';
+import { LinkFormComponent } from './components/links/link-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { DetailsComponent } from './components/details/details.component';
     LoginComponent,
     HomeComponent,
     ChangeComponent,
-    DetailsComponent
+    DetailsComponent,
+    LinksComponent,
+    LinkFormComponent
   ],
   imports: [
     BrowserModule,

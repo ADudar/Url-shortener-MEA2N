@@ -1,5 +1,5 @@
 import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 import { Link } from '../../models/link';
 import { LinkService } from '../../services/link.service';
@@ -13,7 +13,6 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ChangeComponent implements OnInit {
   link: Link;
-
   constructor(
     private linkService: LinkService,
     private route: ActivatedRoute,

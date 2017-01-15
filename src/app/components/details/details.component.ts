@@ -21,4 +21,8 @@ export class DetailsComponent implements OnInit {
       .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
       .subscribe(link => this.link = link);
   }
+
+    goBack(): void {
+    this.location.back();
+  }
 }

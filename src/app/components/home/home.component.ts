@@ -15,12 +15,15 @@ import { LinkService } from '../../services/link.service';
 
 export class HomeComponent implements OnInit {
     users: User[] = [];
-    link = new Link();
     links: Link[] = [];
-    shortLinkisCopied: boolean = false;
-    shortedLink = "";
 
-
+    getTotalClicks() : number {
+        var _totalClicks = 0;
+        for(var i =0; i<this.links.length; i++) {
+            _totalClicks += +this.links[i].clicks;
+        }
+        return _totalClicks;
+    }
 
     constructor(private userService: UserService, private linkService: LinkService) { }
 
@@ -31,33 +34,21 @@ export class HomeComponent implements OnInit {
         //         this.users = users;
         //     });
         this.linkService.getLinks().then(links => this.links = links);
-
     }
 
-    getShortUrl() {
-
-        this.link.shortUrl = "" + window.location.hostname + ":" + window.location.port + "/" + this.makeId();
-        this.link.clicks = 1;
-        this.links.push(this.link);
-        this.shortedLink = this.link.shortUrl;
-        this.link = new Link();
+    OnSubmitForm(event: Link) : void {
+        this.links.unshift(event);
     }
 
-    private makeId(): string {
-        var text = "";
-        var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 6; i++) {
-
-            text += str.charAt(Math.floor(Math.random() * str.length))
-        }
-        return text; 
-
+    deleteLink(id : number): void {
+        this.links.splice(this.links.findIndex(link => link._id === id), 1);
     }
 
-    deleteLink(): void {
-        this.links.splice(this.links.indexOf(this.link), 1);
+    orderByClicks() : void {
+        this.links.sort((a,b) => a>b?1:0);
+        console.log("sort by clicks");
     }
+    //how to order data?
 }
 
 // export class HomeComponent {
@@ -76,7 +67,4 @@ export class HomeComponent implements OnInit {
 //     localStorage.removeItem('id_token');
 //     this.router.navigate(['login']);
 //   }
-
 // }
-
-
