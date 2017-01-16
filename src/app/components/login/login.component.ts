@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { contentHeaders } from '../../common/headers';
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +11,9 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 
 export class LoginComponent implements OnInit {
-    model: any = {};
+    username ='';
+    password ='';
+    model :any;
     loading = false;
     error = '';
 

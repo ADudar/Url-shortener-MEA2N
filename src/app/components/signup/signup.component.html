@@ -1,42 +1,52 @@
 <div class="center-block jumbotron">
   <h2>Signup</h2><br>
-  <form role="form" (ngSubmit)="signup()" novalidate #form = "ngForm" >
-  <div class="form-group form-inline">
-    <label class="col-sm-1" for="username">Username</label>
-    <input  [(ngModel)]="username" required pattern="^[a-zA-Z0-9_.-]*$" minlength="4" maxlength="15"  #usernameField="ngModel" type="text" class="form-control" id="username" placeholder="Username" name="username">
-    <span *ngIf="usernameField.dirty && usernameField.invalid && (usernameField.errors.minlength || usernameField.errors.maxlength)" class="alert alert-danger"> Username can be 4-15 symbols</span>
-    <span *ngIf="usernameField.dirty && usernameField.invalid && usernameField.errors.pattern" class="alert alert-danger"> Username can't contain this symbols'</span>
-  </div>
-  <div class="form-group form-inline">
-    <label class="col-sm-1" for="password">Password</label>
-    <input [(ngModel)]="password" required minlength="8" maxlength="15" minlength="8" maxlength="15" #passwordField="ngModel" type="password"class="form-control" id="password" placeholder="Password" name="password">
-    <span *ngIf="passwordField.dirty && passwordField.invalid" class="alert alert-danger"> Password can be 8-15 symbols</span>
-
-  </div>
-    <div class="form-group form-inline">
-    <label class="col-sm-1" for="password">Password confirm</label>
-    <input [(ngModel)]="passwordConfirm" required minlength="8" maxlength="15" #passwordConfirmField="ngModel" type="password"class="form-control" id="passwordConfirm" placeholder="Password" name="passwordConfirm">
-    <span *ngIf=" passwordConfirmField.dirty && passwordConfirmField.value !== passwordField.value"
-          class="alert alert-danger">
+  <form role="form" (ngSubmit)="signup()" novalidate #form="ngForm">
+    <div class="form-group row ">
+      <label class="col-sm-2" for="username">Username</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="username" required pattern="^[a-zA-Z0-9_.-]*$" minlength="4" maxlength="15" #usernameField="ngModel"
+          type="text" class="form-control" id="username" placeholder="Username" name="username">
+        <span *ngIf="usernameField.dirty && usernameField.invalid && (usernameField.errors.minlength || usernameField.errors.maxlength)"
+          class="alert alert-danger"> Username can be 4-15 symbols</span>
+        <span *ngIf="usernameField.dirty && usernameField.invalid && usernameField.errors.pattern" class="alert alert-danger"> Username can't contain this symbols'</span>
+      </div>
+    </div>
+    <div class="form-group row ">
+      <label class="col-sm-2" for="password">Password</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="password" required minlength="8" maxlength="15" minlength="8" maxlength="15" #passwordField="ngModel"
+        type="password" class="form-control" id="password" placeholder="Password" name="password">
+      <span *ngIf="passwordField.dirty && passwordField.invalid" class="alert alert-danger"> Password can be 8-15 symbols</span>
+      </div>
+   </div>
+    <div class="form-group row ">
+      <label class="col-sm-2" for="password">Password confirm</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="passwordConfirm" required minlength="8" maxlength="15" #passwordConfirmField="ngModel" type="password"
+          class="form-control" id="passwordConfirm" placeholder="Password" name="passwordConfirm">
+        <span *ngIf=" passwordConfirmField.dirty && passwordConfirmField.value !== passwordField.value" class="alert alert-danger">
           Passwords didn't match
     </span>
-  </div><br>
-    <div class="form-group form-inline">
-    <label class="col-sm-1" for="Email">Email</label>
-    <input [(ngModel)]="email" #emailField="ngModel" type="email" required pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  class="form-control" id="email" placeholder="Email" name="email">
-    <span *ngIf="emailField.invalid && emailField.dirty && emailField.errors.required"
-          class="alert alert-danger">
+      </div>
+    </div>
+    <div class="form-group row ">
+      <label class="col-sm-2" for="Email">Email</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="email" #emailField="ngModel" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          class="form-control" id="email" placeholder="Email" name="email">
+        <span *ngIf="emailField.invalid && emailField.dirty && emailField.errors.required" class="alert alert-danger">
           Email is required
     </span>
-    <span *ngIf="emailField.invalid && emailField.dirty && emailField.errors.pattern"
-          class="alert alert-danger">
+        <span *ngIf="emailField.invalid && emailField.dirty && emailField.errors.pattern" class="alert alert-danger">
           Email is invalid
-    </span>    
+    </span>
+      </div>
     </div>
- <div class="form-group">
-            <button [disabled]="loading || form.invalid" type="submit" class="btn btn-primary">Login</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-</div>
-      <a [routerLink]="['/login']">Click here to Login</a>
-</form>
+    <div class="form-group">
+      <button [disabled]="loading || form.invalid" type="submit" class="btn btn-primary">Login</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
+    </div>
+    <a [routerLink]="['/login']">Click here to Login</a>
+  </form>
 </div>

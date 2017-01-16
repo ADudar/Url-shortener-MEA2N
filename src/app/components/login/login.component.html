@@ -3,24 +3,26 @@
         Username: test<br />
         Password: test
     </div>-->
-    <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+    <h2>Login</h2><br>
+    <form name="form" (ngSubmit)="login()" #form="ngForm" novalidate>
+        <div class="form-group row"  [ngClass]="{ 'has-danger': usernameField.touched && usernameField.invalid, 'has-success' : usernameField.valid  }">
+            <label class="col-sm-2 col-form-label" for="username">Username</label>
+            <div class="col-sm-10">
+                <input type="text" required pattern="^[a-zA-Z0-9_.-]*$"  [ngClass]="{ 'form-control-danger': usernameField.touched && usernameField.invalid, 'form-control-success': usernameField.valid}" class="form-control" name="username" placeholder="Username" [(ngModel)]="username" #usernameField="ngModel" />
+            <div *ngIf="usernameField.touched && usernameField.invalid" class="alert alert-danger">Username is required</div>
+            </div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        <div class="form-group row"  [ngClass]="{ 'has-danger': passwordField.touched && passwordField.invalid, 'has-success' : passwordField.valid  }">
+            <label class="col-sm-2 col-form-label" for="password">Password</label>
+            <div class="col-sm-10">
+                        <input type="password"  [ngClass]="{ 'form-control-danger': passwordField.touched && passwordField.invalid, 'form-control-success': passwordField.valid }" [(ngModel)]="password" #passwordField="ngModel"  class="form-control" name="password" placeholder="Password" required />
+            <div *ngIf="passwordField.touched && passwordField.invalid" class="alert alert-danger">Password is required</div>
+            </div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <button [disabled]="loading || form.invalid" class="btn btn-primary">Login</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div>
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <a [routerLink]="['/signup']">Click here to Signup</a>
-        
     </form>
 </div>
