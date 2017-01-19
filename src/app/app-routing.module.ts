@@ -13,8 +13,9 @@ const routes: Routes = [
   { path: 'login',  component: LoginComponent  },
   { path: 'home',   component: HomeComponent },
   { path: 'change/:_id', component: ChangeComponent },
-  { path: 'details/:_id',   component: DetailsComponent },
-  { path: '**',     component: LoginComponent  }
+  { path: 'details/:_id',   component: DetailsComponent }
+  // ,   { path: ':id', redirectTo: 'api/:id' }
+  ,  { path: '**',     component: LoginComponent  }
 ];
 
 @NgModule({

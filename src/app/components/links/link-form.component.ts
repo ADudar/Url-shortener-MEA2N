@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Link } from '../../models/link';
+import { LinkService } from '../../services/link.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-link-form',
@@ -13,19 +15,23 @@ export class LinkFormComponent {
   shortLinkisCopied: boolean = false;
   shortedLinkUrl = "";
   @Output()
-  submitForm = new EventEmitter<Link>();
-  constructor() { }
+  addLink = new EventEmitter<Link>();
+  constructor(private linkService: LinkService, private route: ActivatedRoute) { }
+
 
   AddLink(): void {
-
-    this.getShortUrl();
-    this.generateID();
+    console.log("method add in link-form call");
+    this.link.shortUrl = this.getShortUrl();
+    // this.generateID();
     this.processTags();
     this.link.clicks = 0;
-    this.shortedLinkUrl = this.link.shortUrl;
-    this.submitForm.emit(this.link);
-    // this.links.unshift(this.link);
-    this.link = new Link();     //for clear the fields
+    this.shortedLinkUrl = "http://" + window.location.hostname + ":" + window.location.port + "/"+ this.link.shortUrl;
+    this.linkService.addLink(this.link)
+      .subscribe(
+      data => {
+        this.addLink.emit(this.link);
+        this.link = new Link();     //for clear the fields
+      });
   }
 
   EncodeURL(): string {
@@ -44,7 +50,7 @@ export class LinkFormComponent {
 
   }
 
-  private processTags():void {
+  private processTags(): void {
     var tags = this.link.tags.split(" ");
     this.link.tags = "";
     tags.forEach(tag => {
@@ -52,11 +58,36 @@ export class LinkFormComponent {
     });
   }
 
-  private getShortUrl(): void {
-    this.link.shortUrl = "" + window.location.hostname + ":" + window.location.port + "/" + this.EncodeURL();
+  private getShortUrl(): string {
+    return  this.EncodeURL();
   }
 
-  private generateID() : void {
+  private generateID(): void {
     this.link._id = this.makeId();
   }
+
+  // ngOnInit(): void {
+  //   this.route.params
+  //     .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
+  //     .subscribe(link => this.link = link);
+  // }
+
+  // save(): void {
+  //   this.linkService.update(this.link)
+  //     .then(() => this.goBack());
+  // }
+
+  // AddLink(): void {
+
+  //   this.getShortUrl();
+  //   this.generateID();
+  //   this.processTags();
+  //   this.link.clicks = 0;
+  //   this.shortedLinkUrl = this.link.shortUrl;
+  //   this.submitForm.emit(this.link);
+  //   // this.links.unshift(this.link);
+  //   this.link = new Link();     //for clear the fields
+  // }
+
+
 }

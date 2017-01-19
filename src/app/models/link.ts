@@ -6,5 +6,6 @@ export class Link {
     shortUrl? : string;
     _id? : number;
     aboutUrl? : string;
+    __v? : number;
 
 }

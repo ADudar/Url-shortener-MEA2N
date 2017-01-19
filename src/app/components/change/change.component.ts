@@ -1,4 +1,4 @@
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 import { Link } from '../../models/link';
@@ -12,7 +12,10 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./change.component.less']
 })
 export class ChangeComponent implements OnInit {
+  @Input()
   link: Link;
+  finishedEdit = new EventEmitter();
+
   constructor(
     private linkService: LinkService,
     private route: ActivatedRoute,
@@ -20,12 +23,32 @@ export class ChangeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params
-      .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
-      .subscribe(link => this.link = link);
-  }
 
+    // this.route.params
+    //   .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
+    //   .subscribe(link => this.link = link);
+}
+
+  // initLink(): void {
+  //   this.shortedLinkUrl = this.link.shortUrl;
+  //   this.linkService.addLink(this.link)
+  //     .subscribe(
+  //     data => {
+  //       this.addLink.emit(this.link);
+  //       this.link = new Link();     //for clear the fields
+  //     });
+  // }
+
+
+
+UpdateUrl() {
+      this.linkService.updateLink(this.link)
+      .subscribe(data => { 
+         this.link = null;
+      });
+
+}
   goBack(): void {
-    this.location.back();
+    this.link = null;
   }
 }

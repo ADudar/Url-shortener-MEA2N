@@ -2,12 +2,11 @@ import 'rxjs/Rx';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { HttpModule, Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { ClipboardModule } from 'ngx-clipboard';
-import { fakeBackendProvider } from './helpers/fake-backend';
+// import { fakeBackendProvider } from './helpers/fake-backend';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,13 +46,14 @@ import { LinkFormComponent } from './components/links/link-form.component';
         BaseRequestOptions,
         AuthenticationService,
         UserService,
-        LinkService,
-        AuthGuard,
-        {
-            provide: Http,
-            useFactory: fakeBackendProvider,
-            deps: [MockBackend, BaseRequestOptions]
-        }
+        LinkService
+        // ,
+        // AuthGuard,
+        // {
+        //     provide: Http,
+        //     useFactory: fakeBackendProvider,
+        //     deps: [MockBackend, BaseRequestOptions]
+        // }
     ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,8 @@
-<main class="container" *ngIf="link">
+<main class="container" *ngIf="link ">
   <div class="page-header">
     <h1>Change URL</h1>
   </div>
-  <form class="form" role="form" (submit)="goBack()" >
+  <form class="form" role="form" (submit)="UpdateUrl()" >
     <div class="form-group">
       <label class="control-label">Long URL</label>
       <input type="url" pattern="https?://.+"  title="Enter URL which start with http:// or https://" class="form-control" [(ngModel)]="link.longUrl" name="longUrl">
