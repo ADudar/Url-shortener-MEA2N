@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 // import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { contentHeaders } from '../../common/headers';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,31 +16,48 @@ export class SignupComponent {
   password='';
   passwordConfirm='';
   email='';
+  error='';
+  loading = false;
+  currentUser = '';
 
-  constructor(public router: Router, public http: Http) {
+  constructor(public router: Router, public http: Http, public auth : AuthenticationService) {
     
   }
 
-  // signup(event, username, password) {
-  //   event.preventDefault();
-  //   let body = JSON.stringify({ username, password });
-  //   this.http.post('http://localhost:3000/users', body, { headers: contentHeaders })
-  //     .subscribe(
-  //       response => {
-  //         localStorage.setItem('id_token', response.json().id_token);
-  //         this.router.navigate(['home']);
-  //       },
-  //       error => {
-  //         alert(error.text());
-  //         console.log(error.text());
-  //       }
-  //     );
-  // }
+  signup() {
+      //  console.log("signup press");
+      //  this.loading = true;
+    // event.preventDefault();
+    this.auth.signup(this.username, this.password)
 
-    signup() {
-      console.log("signup press"); 
-      //reset form?
-}
+          .subscribe(result => {
+        this.loading = true;
+                if (result === true) {
+                    this.router.navigate(['/home']);
+                } else {
+                    this.error = 'User with username \"'+ this.username + '\" exist';
+                    this.loading = false;
+                }
+            });
+  }
+
+    //   login() {
+    //     this.loading = true;
+    //     this.authenticationService.login(this.username, this.password)
+    //         .subscribe(result => {
+    //             if (result === true) {
+    //                 this.router.navigate(['/home']);
+    //             } else {
+    //                 this.error = 'Username or password is incorrect';
+    //                 this.loading = false;
+    //             }
+    //         });
+    // }
+
+//     signup() {
+//       console.log("signup press"); 
+//       //reset form?
+// }
 
 
   login(event) {

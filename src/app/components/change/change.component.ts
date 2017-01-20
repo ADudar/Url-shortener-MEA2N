@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Subscription } from'rxjs/Subscription';
+import { Component, OnInit,OnDestroy, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 import { Link } from '../../models/link';
@@ -11,22 +12,32 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './change.component.html',
   styleUrls: ['./change.component.less']
 })
-export class ChangeComponent implements OnInit {
+export class ChangeComponent implements OnInit, OnDestroy {
   @Input()
-  link: Link;
+  link;
+  paramsSubscription : Subscription;
   finishedEdit = new EventEmitter();
 
   constructor(
-    private linkService: LinkService,
-    private route: ActivatedRoute,
-    private location: Location
-  ) {}
+      private linkService: LinkService,
+      private route: ActivatedRoute,
+      private router: Router,
+      private location: Location ) {
+
+
+  }
 
   ngOnInit(): void {
+            this.paramsSubscription = this.route.params.subscribe( params => {
+           this.linkService.getLinkById(params['_id']).subscribe(link => this.link = link);
+        });
 
-    // this.route.params
-    //   .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
-    //   .subscribe(link => this.link = link);
+      // .subscribe(link => this.link = link);
+}
+
+ngOnDestroy() : void {
+  this.paramsSubscription.unsubscribe();
+
 }
 
   // initLink(): void {
@@ -44,11 +55,13 @@ export class ChangeComponent implements OnInit {
 UpdateUrl() {
       this.linkService.updateLink(this.link)
       .subscribe(data => { 
-         this.link = null;
+        //  this.router.navigateByUrl('/home');
+        //  this.link = null;
+        this.router.navigate(['/home']);
       });
 
 }
   goBack(): void {
-    this.link = null;
+    this.location.back();
   }
 }

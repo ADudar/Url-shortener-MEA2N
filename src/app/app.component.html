@@ -1,7 +1,9 @@
 <div class="container">
-  <a [routerLink]="['/signup']">Signup</a>
-  <a [routerLink]="['/login']">Login</a>
-  <a [routerLink]="['/home']">Home</a>
-  <a [routerLink]="['/login']" class="pull-right">Logout</a>
+<div class="nav">
+    <a *ngIf="!this.auth.loggedIn" [routerLink]="['/signup']" class="nav-link ">Signup</a>
+  <a *ngIf="!this.auth.loggedIn" [routerLink]="['/login']"class="nav-link active">Login</a>
+  <a *ngIf="this.auth.loggedIn"[routerLink]="['/home']"class="nav-link  ">Home</a>
+  <a *ngIf="this.auth.loggedIn" [routerLink]  (click)="logout()" role="button" class="nav-link pull-right">Logout</a>
+</div>
   <router-outlet></router-outlet>
 </div>

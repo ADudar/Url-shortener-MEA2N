@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  constructor(public router: Router){}
+  constructor(private router: Router,
+              private auth : AuthenticationService){
+
+  }
+
+  logout() {
+    // console.log("islogout");
+    // this.auth.loggedIn = false;
+
+    // this.router.navigate(['login']);
+    this.auth.logout();
+  }
+
+
+
+
 }

@@ -20,9 +20,7 @@
     <td> {{link.tags}}</td>
     <td> {{link.clicks}}</td>
     <td><a [routerLink]="['/details', link._id]"> details </a></td>
-    <td><a (click)="OnChange(link)"
-    class="btn btn-warning">Change
-            <!--"[routerLink]="['/change', link._id]"-->
+    <td><a (click)="OnChange(link)" class="btn btn-warning"   [routerLink]="['/change', link._id]">Change
             </a></td>
     <td>
       <button (click)="deleteLink(link._id)" class="btn btn-danger">Delete</button>
@@ -31,6 +29,6 @@
 <h3>Total clicks: {{getTotalClicks()}} </h3>
 <h3>Total links: {{getTotalLinks()}} </h3>
 </table>
-  <app-change (finishedEdit)="isEditMode"  [link]="changedLink">
+  <!--<app-change (finishedEdit)="isEditMode"  [link]="changedLink">
     this is app-change
-  </app-change>
+  </app-change>-->

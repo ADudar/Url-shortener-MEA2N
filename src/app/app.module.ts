@@ -2,9 +2,9 @@ import 'rxjs/Rx';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { HttpModule, Http, RequestOptions, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
 import { ClipboardModule } from 'ngx-clipboard';
 // import { fakeBackendProvider } from './helpers/fake-backend';
 
@@ -21,6 +21,8 @@ import { LinkService } from './services/link.service';
 import { DetailsComponent } from './components/details/details.component';
 import { LinksComponent } from './components/links/links.component';
 import { LinkFormComponent } from './components/links/link-form.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
+import {AuthHttpServiceFactory} from './services/auth-http-service-factory'
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { LinkFormComponent } from './components/links/link-form.component';
     ChangeComponent,
     DetailsComponent,
     LinksComponent,
-    LinkFormComponent
+    LinkFormComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -41,14 +44,18 @@ import { LinkFormComponent } from './components/links/link-form.component';
     ClipboardModule
   ],
   providers: [
-    // AUTH_PROVIDERS
+      // ...AUTH_PROVIDERS,
         MockBackend,
         BaseRequestOptions,
         AuthenticationService,
         UserService,
-        LinkService
-        // ,
-        // AuthGuard,
+        LinkService ,
+        AuthGuard,
+            {
+      provide: AuthHttp,
+      useFactory: AuthHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
         // {
         //     provide: Http,
         //     useFactory: fakeBackendProvider,

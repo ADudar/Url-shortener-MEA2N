@@ -18,7 +18,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
+      .switchMap((params: Params) => this.linkService.getLinkById(+params['_id']))
       .subscribe(link => this.link = link);
   }
 

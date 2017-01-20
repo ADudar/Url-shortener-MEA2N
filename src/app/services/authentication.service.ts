@@ -2,42 +2,55 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
+import { Router } from '@angular/router';
+import { contentHeaders } from '../common/headers';
 
 @Injectable()
 export class AuthenticationService {
-  
-    public token: string;
 
-    constructor(private http: Http) {
-        // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
-    }
+  private token: string;
+  loggedIn = false;
 
-    login(username, password): Observable<boolean> {
-        return this.http.post('http://localhost:3000/api/authenticate', JSON.stringify({ username: username, password: password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
-                if (token) {
-                    // set token property
-                    this.token = token;
+  constructor(private http: Http,
+              private router: Router) {
+  }
 
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+  authenticate(username, password, url): Observable<boolean> {
+    let body = JSON.stringify({ username, password });
+    return this.http.post('api/login', body, { headers: contentHeaders })
+      .map((response) => {
 
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
-            });
-    }
+        // login successful if there's a jwt token in the response
+        let token = response.json() && response.json().token;
+        if (token) {
+          this.token = token; //set token property
+          // store username and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('id_token', response.json().token);
+          this.loggedIn = true;
+          return true; //login success
+        } else {
+          this.loggedIn = false; //login failed
+          return false;
+        }
+      });
 
-    logout(): void {
-        // clear token remove user from local storage to log user out
-        this.token = null;
-        localStorage.removeItem('currentUser');
-    }
+  }
+
+  login(username, password): Observable<boolean> {
+
+    return this.authenticate(username, password, 'api/login')
+  }
+
+  signup(username, password): Observable<boolean> {
+
+    return this.authenticate(username, password, '/api/users')
+  }
+
+  logout(): void {
+    // clear token remove user from local storage to log user out
+    this.token = null;
+    localStorage.removeItem('id_token');
+    this.loggedIn = false;
+    this.router.navigate(['login']);
+  }
 }
