@@ -4,29 +4,47 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import { Router } from '@angular/router';
 import { contentHeaders } from '../common/headers';
+import { User } from '../models/user';
 
 @Injectable()
 export class AuthenticationService {
 
   private token: string;
+  get Token(): string {return this.token;}
   loggedIn = false;
+  public username;
+  public  user_id;
+  // public  user : User ;
 
   constructor(private http: Http,
               private router: Router) {
+
+     
   }
 
-  authenticate(username, password, url): Observable<boolean> {
-    let body = JSON.stringify({ username, password });
-    return this.http.post('api/login', body, { headers: contentHeaders })
+      getCurrentUser() {
+              console.log('auth service getcuurent user');
+
+          return this.http.get('/api/user/filter?username='+ this.username) 
+                            .map(res =>  res.json());
+  }
+
+
+  authenticate(username, password, url, email=''): Observable<boolean> {
+    let body = JSON.stringify({ username, password, email });
+    return this.http.post(url, body, { headers: contentHeaders })
       .map((response) => {
 
         // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
         if (token) {
           this.token = token; //set token property
+          this.username = username;
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('id_token', response.json().token);
+          localStorage.setItem('id_token', token);
           this.loggedIn = true;
+                // this.getCurrentUser();
+
           return true; //login success
         } else {
           this.loggedIn = false; //login failed
@@ -41,9 +59,9 @@ export class AuthenticationService {
     return this.authenticate(username, password, 'api/login')
   }
 
-  signup(username, password): Observable<boolean> {
+  signup(username, password, email): Observable<boolean> {
 
-    return this.authenticate(username, password, '/api/users')
+    return this.authenticate(username, password, '/api/users', email)
   }
 
   logout(): void {

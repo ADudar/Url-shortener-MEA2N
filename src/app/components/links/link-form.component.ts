@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Link } from '../../models/link';
 import { LinkService } from '../../services/link.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-link-form',
@@ -16,7 +17,8 @@ export class LinkFormComponent {
   shortedLinkUrl = "";
   @Output()
   addLink = new EventEmitter<Link>();
-  constructor(private linkService: LinkService, private route: ActivatedRoute) { }
+  constructor(private linkService: LinkService, private route: ActivatedRoute,
+  private auth: AuthenticationService) { }
 
 
   AddLink(): void {
@@ -25,13 +27,21 @@ export class LinkFormComponent {
     // this.generateID();
     this.processTags();
     this.link.clicks = 0;
-    this.shortedLinkUrl = "http://" + window.location.hostname + ":" + window.location.port + "/"+ this.link.shortUrl;
+    this.auth.getCurrentUser()
+    .subscribe(user => {
+      this.link.user_id = user._id;
+          console.log("here need link full with id:");
+    console.log(this.link);
     this.linkService.addLink(this.link)
       .subscribe(
       data => {
         this.addLink.emit(this.link);
         this.link = new Link();     //for clear the fields
       });
+
+    });
+    this.shortedLinkUrl = "http://" + window.location.hostname + ":" + window.location.port + "/"+ this.link.shortUrl;
+
   }
 
   EncodeURL(): string {

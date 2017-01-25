@@ -16,6 +16,13 @@ export class LinkService {
       });
   }
 
+  getFilteredLinks(filter = '') {
+          console.log('link service get filtered links ');
+
+                return this.authHttp.get('api/link/filter?user_id='+filter)
+              .map(res =>  res.json())
+  }
+
   getLinkById(id: number) {
     const url = '/api/links/' + id;
 
@@ -42,7 +49,8 @@ export class LinkService {
     return this.authHttp
       .post('/api/links', body, { headers: contentHeaders })
       .map((data) => {
-        console.log(data); return data.json();
+        // console.log(data);
+         return data.json();
       });
   }
 

@@ -15,10 +15,6 @@ export class AppComponent {
   }
 
   logout() {
-    // console.log("islogout");
-    // this.auth.loggedIn = false;
-
-    // this.router.navigate(['login']);
     this.auth.logout();
   }
 

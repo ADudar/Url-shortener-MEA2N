@@ -4,6 +4,7 @@
   <a *ngIf="!this.auth.loggedIn" [routerLink]="['/login']"class="nav-link active">Login</a>
   <a *ngIf="this.auth.loggedIn"[routerLink]="['/home']"class="nav-link  ">Home</a>
   <a *ngIf="this.auth.loggedIn" [routerLink]  (click)="logout()" role="button" class="nav-link pull-right">Logout</a>
+  <span *ngIf="this.auth.loggedIn"class="pull-right" >Hello {{this.auth.username}} </span>
 </div>
   <router-outlet></router-outlet>
 </div>

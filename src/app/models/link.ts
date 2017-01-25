@@ -7,5 +7,6 @@ export class Link {
     _id? : number;
     aboutUrl? : string;
     __v? : number;
+    user_id? : string;
 
 }

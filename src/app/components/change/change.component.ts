@@ -13,10 +13,10 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./change.component.less']
 })
 export class ChangeComponent implements OnInit, OnDestroy {
-  @Input()
+  // @Input()
   link;
   paramsSubscription : Subscription;
-  finishedEdit = new EventEmitter();
+  // finishedEdit = new EventEmitter();
 
   constructor(
       private linkService: LinkService,

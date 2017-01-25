@@ -22,7 +22,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { LinksComponent } from './components/links/links.component';
 import { LinkFormComponent } from './components/links/link-form.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
-import {AuthHttpServiceFactory} from './services/auth-http-service-factory'
+import {AuthHttpServiceFactory} from './services/auth.http.service';
 
 @NgModule({
   declarations: [

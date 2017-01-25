@@ -18,7 +18,7 @@ export class SignupComponent {
   email='';
   error='';
   loading = false;
-  currentUser = '';
+  // currentUser = '';
 
   constructor(public router: Router, public http: Http, public auth : AuthenticationService) {
     
@@ -28,7 +28,8 @@ export class SignupComponent {
       //  console.log("signup press");
       //  this.loading = true;
     // event.preventDefault();
-    this.auth.signup(this.username, this.password)
+    this.loading =true;
+    this.auth.signup(this.username, this.password, this.email)
 
           .subscribe(result => {
         this.loading = true;
@@ -36,9 +37,10 @@ export class SignupComponent {
                     this.router.navigate(['/home']);
                 } else {
                     this.error = 'User with username \"'+ this.username + '\" exist';
-                    this.loading = false;
                 }
-            });
+                    this.loading = false;
+            }
+            );
   }
 
     //   login() {
@@ -59,9 +61,4 @@ export class SignupComponent {
 //       //reset form?
 // }
 
-
-  login(event) {
-    event.preventDefault();
-    this.router.navigate(['login']);
-  }
 }

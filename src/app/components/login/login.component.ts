@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
-import { contentHeaders } from '../../common/headers';
+// import { contentHeaders } from '../../common/headers';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Observable } from 'rxjs/Observable';
+import { AuthGuard } from '../../guards/auth.guard';
 
 @Component({
     selector: 'app-login',
@@ -22,12 +23,26 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private auth: AuthenticationService,
         private route: ActivatedRoute,
-        private http : Http) { }
+        private http : Http,
+        private authGuard: AuthGuard) { }
 
     ngOnInit() {
+
+        // this.checkAuth() ;
         // reset login status
-        // this.auth.logout();
+        this.auth.logout();
     }
+
+
+    // checkAuth() {
+    //     console.log(this.auth.loggedIn);
+    //     console.log(this.auth.Token);
+    //     // console.log(this.auth.user_id);
+    //     console.log(this.auth.username);
+    //     return this.authGuard.isLoggedIn();
+
+
+    // }
 
       login() {
     // // event.preventDefault();
