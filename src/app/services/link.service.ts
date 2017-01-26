@@ -24,17 +24,24 @@ export class LinkService {
   }
 
   getLinkById(id: number) {
+    console.log('get link by id call, id = ' + id);
     const url = '/api/links/' + id;
 
     return this.authHttp.get(url, { headers: contentHeaders })
       .map(res => res.json());
   }
 
-  getLinkByShortUrl(shortUrl: string) {
-    const url = '/' + shortUrl;
-    return this.authHttp.get(url, { headers: contentHeaders })
-      .map(res => res.json());
+  // getLinkByShortUrl(shortUrl: string) {
+  //   const url = '/' + shortUrl;
+  //   return this.authHttp.get(url, { headers: contentHeaders })
+  //     .map(res => res.json());
+  // }
+
+  redirect(shortUrl: string) {
+    return this.authHttp.get('api/links/redirect/'+shortUrl,{ headers: contentHeaders })
+    .map (longUrl => longUrl.json());
   }
+
 
   deleteLink(id: number) {
     const url = '/api/links/' + id;
@@ -59,4 +66,6 @@ export class LinkService {
       .put('/api/links/' + link._id, JSON.stringify(link), { headers: contentHeaders })
       .map(data => data.json());
   }
+
+
 }

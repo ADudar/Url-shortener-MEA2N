@@ -15,7 +15,7 @@
   </tr>
   <tr *ngFor="let link of links">
     <td ><a href="{{link.longUrl}}" target="_blank">{{link.longUrl}} </a></td>
-    <td><a href="{{link.shortUrl}}" target="_blank">{{link.shortUrl}} </a></td>
+    <td><a  [routerLink]="['/redirect', link.shortUrl]"  target="_blank">{{link.shortUrl}} </a></td>
     <td> {{link.description}}</td>
     <td> {{link.tags}}</td>
     <td> {{link.clicks}}</td>

@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'change/:_id', component: ChangeComponent },
   { path: 'details/:_id', component: DetailsComponent }
   // ,   { path: ':id', redirectTo: 'api/:id' }
-  , { path: ':id', component: RedirectComponent }
+  , { path: 'redirect/:id', component: RedirectComponent }
   , { path: '**', component: LoginComponent }
 ];
 

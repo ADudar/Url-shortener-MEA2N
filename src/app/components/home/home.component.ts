@@ -77,6 +77,8 @@ export class HomeComponent implements OnInit {
                         window.location.hostname + 
                         ":" + window.location.port + 
                         "/" + link.shortUrl;
+                        console.log("need to be shorted link with correct url");
+                        console.log(link);
         this.links.unshift(link);
     }
 
@@ -117,5 +119,12 @@ export class HomeComponent implements OnInit {
         this.links.sort((a, b) => a > b ? 1 : 0);
         console.log("sort by clicks");
     }
+
+    // redirect(shortlink : string) {
+    //     // window.location.href = 
+    //     this.linkService.redirect(shortlink)
+    //     .subsc
+
+    // }
 }
 
