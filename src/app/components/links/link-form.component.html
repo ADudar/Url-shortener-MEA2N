@@ -1,22 +1,24 @@
 <form #linkForm="ngForm" (submit)="AddLink()">
   <input required type="url" pattern="https?://.+" placeholder="INSERT YOUR LONG URL HERE" class="form-control" [(ngModel)]="link.longUrl" name="longUrl">  <br>
   <input required type="text" placeholder="WRITE DESCRIPTION" class="form-control" [(ngModel)]="link.description" name="description">  <br>
-  <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="link.tags" name="tags"> <br>
-  <button type="submit" class="btn btn-primary">Shorten</button>
+  <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="tags" name="tags"> <br>
+  <button type="submit" class="btn btn-primary">Shorten <i class="fa fa-angle-down" aria-hidden="true"></i></button>
 </form>
+<div *ngIf="error"  class="mt-2 alert alert-danger">{{error}}</div>
 <br>
-<div class="row" *ngIf="shortedLinkUrl">
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="shortUrlInput">
-       Short url <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i>
+<div *ngIf="shortedLinkUrl" class="row">
+    <div class="col-md-6 col-sm-12">
+    <div class="input-group">
+            <label class="mt-2" for="shortUrlInput">
+       Short Url <i class="fa fa-chevron-right"></i> <i class="fa fa-chevron-right"></i> 
       </label>
-      <input id="shortUrlInput" type="url" class="form-control" #shortUrlInput value="{{shortedLinkUrl}}" readonly="readonly">
-      <button class="btn btn-secondary" type="button" [class.btn-success]="shortLinkisCopied" [ngxClipboard]="shortUrlInput" [cbContent]="text"
+      <input id="shortUrlInput" type="url" class="form-control" #shortUrlInput value="{{shortedLinkUrl | url}}" readonly="readonly">
+      <span class="input-group-btn">
+  <button class="btn btn-secondary" type="button" [class.btn-success]="shortLinkisCopied" [ngxClipboard]="shortUrlInput" [cbContent]="text"
         (cbOnSuccess)="shortLinkisCopied = true">
                 Copy
         </button>
-    </div>
-  </form>
-</div>
-<br/>
+      </span>
+    </div><!--input-group-->
+  </div><!--col-->
+</div><!--row-->

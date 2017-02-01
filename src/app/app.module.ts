@@ -23,6 +23,12 @@ import { LinksComponent } from './components/links/links.component';
 import { LinkFormComponent } from './components/links/link-form.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 import {AuthHttpServiceFactory} from './services/auth.http.service';
+import { TestComponent } from './components/test/test.component';
+import { UrlPipe } from './pipes/url.pipe';
+import { TagPipe } from './pipes/tag.pipe';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LinkComponent } from './components/links/link.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,13 @@ import {AuthHttpServiceFactory} from './services/auth.http.service';
     DetailsComponent,
     LinksComponent,
     LinkFormComponent,
-    RedirectComponent
+    RedirectComponent,
+    TestComponent,
+    UrlPipe,
+    TagPipe,
+    NavbarComponent,
+    FooterComponent,
+    LinkComponent
   ],
   imports: [
     BrowserModule,

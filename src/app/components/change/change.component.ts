@@ -16,6 +16,7 @@ export class ChangeComponent implements OnInit, OnDestroy {
   // @Input()
   link;
   paramsSubscription : Subscription;
+  message;
   // finishedEdit = new EventEmitter();
 
   constructor(
@@ -55,9 +56,10 @@ ngOnDestroy() : void {
 UpdateUrl() {
       this.linkService.updateLink(this.link)
       .subscribe(data => { 
+        this.message = data.message;
         //  this.router.navigateByUrl('/home');
         //  this.link = null;
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
       });
 
 }

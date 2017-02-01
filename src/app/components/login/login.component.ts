@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     username = '';
     password = '';
     model: any;
-    loading = false;
+    isLoading = false;
     error = '';
 
     constructor(
@@ -58,14 +58,14 @@ export class LoginComponent implements OnInit {
     //       console.log(error.text());
     //     }
     //   );
-    this.loading = true;
+    this.isLoading = true;
     this.auth.login(this.username, this.password)
           .subscribe(result => {
                 if (result === true) {
                     this.router.navigate(['/home']);
                 } else {
                     this.error = 'Username or password is incorrect';
-                    this.loading = false;
+                    this.isLoading = false;
                 }
             });
 
@@ -73,14 +73,14 @@ export class LoginComponent implements OnInit {
 }
 
     // login() {
-    //     // this.loading = true;
+    //     // this.isLoading = true;
     //     // this.authenticationService.login(this.username, this.password)
     //     //     .subscribe(result => {
     //     //         if (result === true) {
     //     //             this.router.navigate(['/home']);
     //     //         } else {
     //     //             this.error = 'Username or password is incorrect';
-    //     //             this.loading = false;
+    //     //             this.isLoading = false;
     //     //         }
     //     //     });
         

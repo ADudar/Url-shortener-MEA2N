@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LinkService } from '../../services/link.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthenticationService } from '../../services/authentication.service';
+import { AuthHttp } from 'angular2-jwt';
 
 @Component({
   selector: 'app-redirect',
@@ -12,36 +14,36 @@ export class RedirectComponent implements OnInit {
   paramsSubscription: Subscription;
   constructor(private linkService: LinkService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private auth: AuthenticationService) {
 
   }
+  isLoading = true;
+  result = 'Redirecting...';
 
   redirect() {
-    // this.linkService.getLinkByShortUrl(this.route.params['shortUrl'])
-    //                 .subscribe(url => this.url = url);
-    // this.router.navigate(['/'+this.url]);
-    // console.log(this.route.params.value.id);
-    //   this.linkService.redirect(this.route.params['id'])
-    //   .subscribe((url) => {
-    //     console.log("here need url to redirect");
-    //     console.log(url);
-    //     window.location.href=url;  
-    //   })
-
-
+    console.log("route params");
+    console.log(this.route);
     this.paramsSubscription = this.route.params.subscribe(params => {
       this.linkService.redirect(params['id']).subscribe(longUrl => {
-        window.location.href = longUrl.url;
+        if (longUrl.url) {
+          window.location.href = longUrl.url;
+        }
+        else {
+
+          this.result = "Failed to redirect";
+          this.isLoading = false;
+        }
       })
     });
   }
 
   ngOnInit() {
     this.redirect();
+    // console.log(this.route);
   }
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
   }
-
 }

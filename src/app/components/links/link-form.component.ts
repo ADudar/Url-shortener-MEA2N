@@ -13,6 +13,8 @@ export class LinkFormComponent {
 
   @Input()
   link = new Link();
+  tags='';
+  error = '';
   shortLinkisCopied: boolean = false;
   shortedLinkUrl = "";
   @Output()
@@ -24,9 +26,10 @@ export class LinkFormComponent {
   AddLink(): void {
     console.log("method add in link-form call");
     this.link.shortUrl = this.getShortUrl();
-    // this.generateID();
-    this.processTags();
     this.link.clicks = 0;
+    this.link.tags = this.tags.split(/[' ,.']/).filter(tag => tag!='');
+    console.log("here need to be tags in array");
+    console.log(this.link.tags);
     this.auth.getCurrentUser()
     .subscribe(user => {
       this.link.user_id = user._id;
@@ -35,12 +38,22 @@ export class LinkFormComponent {
     this.linkService.addLink(this.link)
       .subscribe(
       data => {
-        this.addLink.emit(this.link);
-        this.link = new Link();     //for clear the fields
+        console.log('data from json');
+        console.log(data);
+if(data.success== true) {
+          this.addLink.emit(this.link);
+              this.shortedLinkUrl = this.link.shortUrl;
+        this.link = new Link();  
+        this.error = '';
+}
+else {
+  this.error = data.message;
+}
+   //for clear the fields
       });
 
     });
-    this.shortedLinkUrl = "http://" + window.location.hostname + ":" + window.location.port + "/"+ this.link.shortUrl;
+
 
   }
 
@@ -60,13 +73,6 @@ export class LinkFormComponent {
 
   }
 
-  private processTags(): void {
-    var tags = this.link.tags.split(" ");
-    this.link.tags = "";
-    tags.forEach(tag => {
-      this.link.tags += "#" + tag + " ";
-    });
-  }
 
   private getShortUrl(): string {
     return  this.EncodeURL();

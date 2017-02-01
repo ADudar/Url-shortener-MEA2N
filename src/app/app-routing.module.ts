@@ -16,9 +16,10 @@ const routes: Routes = [
   , canActivate: [AuthGuard]
  },
   { path: 'change/:_id', component: ChangeComponent },
-  { path: 'details/:_id', component: DetailsComponent }
+  { path: 'details/:shortUrl', component: DetailsComponent }
   // ,   { path: ':id', redirectTo: 'api/:id' }
-  , { path: 'redirect/:id', component: RedirectComponent }
+  // , { path: 'redirect/:id', component: RedirectComponent }
+  , { path: ':id', component: RedirectComponent }
   , { path: '**', component: LoginComponent }
 ];
 

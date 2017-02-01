@@ -2,35 +2,4 @@
   Url Shortener
 </h2>
 <app-link-form (addLink)="OnAddLink($event)"></app-link-form>
-<table class="table table-hover " *ngIf="links.length > 0 ">
-  <tr>
-    <th> LONGURL</th>
-    <th> SHORTURL</th>
-    <th> DESCRIPTION</th>
-    <th> TAGS</th>
-    <th (click)="orderByClicks()"> CLICKS</th>
-    <th> ABOUT</th>
-    <th> CHANGE</th>
-    <th> DELETE</th>
-  </tr>
-  <tr *ngFor="let link of links">
-    <td ><a href="{{link.longUrl}}" target="_blank">{{link.longUrl}} </a></td>
-    <td><a  [routerLink]="['/redirect', link.shortUrl]"  target="_blank">{{link.shortUrl}} </a></td>
-    <td> {{link.description}}</td>
-    <td> {{link.tags}}</td>
-    <td> {{link.clicks}}</td>
-    <td><a [routerLink]="['/details', link._id]"> details </a></td>
-    <td><a  class="btn btn-warning"   [routerLink]="['/change', link._id]">Change
-            </a></td>
-    <td>
-      <button (click)="deleteLink(link._id)" class="btn btn-danger">Delete</button>
-    </td>
-  </tr>
-<h3>Total clicks: {{getTotalClicks()}} </h3>
-<h3>Total links: {{getTotalLinks()}} </h3>
-</table>
-
-<h3 *ngIf="links.length == 0">  You haven't short  links!</h3>
-  <!--<app-change (finishedEdit)="isEditMode"  [link]="changedLink">
-    this is app-change
-  </app-change>-->
+<app-links    [link]= "link"></app-links>

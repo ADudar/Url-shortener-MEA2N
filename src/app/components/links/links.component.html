@@ -1,3 +1,37 @@
-<p>
-  links works!
-</p>
+<table class="table table-hover table-responsive " *ngIf="links.length > 0 ">
+  <thead>
+    <tr>
+      <th> LONGURL</th>
+      <th> SHORTURL</th>
+      <th> DESCRIPTION</th>
+      <th> TAGS</th>
+      <th (click)="orderByClicks()"> CLICKS</th>
+      <th> ABOUT</th>
+      <th> CHANGE</th>
+      <th> DELETE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let link of links">
+      <td>
+        <a class="long-url" href="{{link.longUrl}}" target="_blank">{{link.longUrl}} </a>
+      </td>
+      <td><a [routerLink]="['/', link.shortUrl]" target="_blank"> {{link.shortUrl | url}}  </a></td>
+      <td> {{link.description}}</td>
+      <td> {{link.tags | tags}}</td>
+      <td> {{link.clicks}}</td>
+      <td><a [routerLink]="['/details', link.shortUrl]"> details </a></td>
+      <td><a class="btn btn-warning" [routerLink]="['/change', link._id]">Change
+            </a></td>
+      <td>
+        <button (click)="deleteLink(link._id)" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <h3>Total clicks: {{getTotalClicks()}} </h3>
+  <h3>Total links: {{getTotalLinks()}} </h3>
+</table>
+<h3 *ngIf="isLoading">Loading...
+ <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+</h3>
+<h3 *ngIf=" !isLoading && links.length == 0"> You haven't short links!</h3>

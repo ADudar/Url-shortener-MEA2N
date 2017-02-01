@@ -47,20 +47,24 @@ private username = '';
       canActivate() {
         // this.useJwtHelper();
 
-    if (tokenNotExpired()) {
-      console.log('guard token not expired ');
-      this.auth.loggedIn = true;
-      var token = localStorage.getItem('id_token');
+    // if (tokenNotExpired()) {
+    //   console.log('guard token not expired ');
+    //   this.auth.loggedIn = true;
+    //   var token = localStorage.getItem('id_token');
       
-      this.auth.username = (new JwtHelper).decodeToken(token).username;
+    //   this.auth.username = (new JwtHelper).decodeToken(token).username;
       
-      // this.auth.getCurrentUser()
-      // .subscribe(username => {this.auth.loggedIn = true;this.auth.username = username;});
-      // console.log(this.auth.Token);// auth.token = undefined
-      return true;
-    }
-    this.router.navigate(['/login']);
-    return false;
+    //   // this.auth.getCurrentUser()
+    //   // .subscribe(username => {this.auth.loggedIn = true;this.auth.username = username;});
+    //   // console.log(this.auth.Token);// auth.token = undefined
+    //   return true;
+    // }
 
+    if(this.auth.isLoggedIn()){
+      return true;
+    } else {
+          this.router.navigate(['/login']);
+    return false;
+    }
   }
 }

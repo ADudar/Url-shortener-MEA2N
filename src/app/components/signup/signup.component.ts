@@ -17,7 +17,7 @@ export class SignupComponent {
   passwordConfirm='';
   email='';
   error='';
-  loading = false;
+  isLoading = false;
   // currentUser = '';
 
   constructor(public router: Router, public http: Http, public auth : AuthenticationService) {
@@ -26,32 +26,32 @@ export class SignupComponent {
 
   signup() {
       //  console.log("signup press");
-      //  this.loading = true;
+      //  this.isLoading = true;
     // event.preventDefault();
-    this.loading =true;
+    this.isLoading =true;
     this.auth.signup(this.username, this.password, this.email)
 
           .subscribe(result => {
-        this.loading = true;
+        this.isLoading = true;
                 if (result === true) {
                     this.router.navigate(['/home']);
                 } else {
                     this.error = 'User with username \"'+ this.username + '\" exist';
                 }
-                    this.loading = false;
+                    this.isLoading = false;
             }
             );
   }
 
     //   login() {
-    //     this.loading = true;
+    //     this.isLoading = true;
     //     this.authenticationService.login(this.username, this.password)
     //         .subscribe(result => {
     //             if (result === true) {
     //                 this.router.navigate(['/home']);
     //             } else {
     //                 this.error = 'Username or password is incorrect';
-    //                 this.loading = false;
+    //                 this.isLoading = false;
     //             }
     //         });
     // }

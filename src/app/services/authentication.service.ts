@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map'
 import { Router } from '@angular/router';
 import { contentHeaders } from '../common/headers';
 import { User } from '../models/user';
+import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -21,6 +23,19 @@ export class AuthenticationService {
 
      
   }
+
+
+      isLoggedIn(): boolean {
+      if (tokenNotExpired()) {
+      console.log('guard token not expired ');
+      this.loggedIn = true;
+      var token = localStorage.getItem('id_token');
+      this.username = (new JwtHelper).decodeToken(token).username;
+
+      return true;
+    }
+    return false;
+      }
 
       getCurrentUser() {
               console.log('auth service getcuurent user');
