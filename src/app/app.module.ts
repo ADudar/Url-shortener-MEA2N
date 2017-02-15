@@ -6,7 +6,6 @@ import { HttpModule, Http, RequestOptions, BaseRequestOptions, Response, Respons
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { AuthHttp } from 'angular2-jwt';
 import { ClipboardModule } from 'ngx-clipboard';
-// import { fakeBackendProvider } from './helpers/fake-backend';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +28,11 @@ import { TagPipe } from './pipes/tag.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LinkComponent } from './components/links/link.component';
+import {Ng2PaginationModule} from 'ng2-pagination';
+import { ModalModule } from 'ng2-bootstrap/modal';
+// import { ModalModule } from 'angular2-modal';
+// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { ButtonsModule } from 'ng2-bootstrap/buttons';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { LinkComponent } from './components/links/link.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    ClipboardModule
+    ClipboardModule,
+    Ng2PaginationModule,
+    ModalModule.forRoot(),
+    ButtonsModule.forRoot()
+        // BootstrapModalModule
   ],
   providers: [
       // ...AUTH_PROVIDERS,

@@ -1,16 +1,26 @@
+<h2>
+  <span class="badge badge-default" >Shorten your link here:  </span>
+</h2>
 <form #linkForm="ngForm" (submit)="AddLink()">
-  <input required type="url" pattern="https?://.+" placeholder="INSERT YOUR LONG URL HERE" class="form-control" [(ngModel)]="link.longUrl" name="longUrl">  <br>
-  <input required type="text" placeholder="WRITE DESCRIPTION" class="form-control" [(ngModel)]="link.description" name="description">  <br>
-  <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="tags" name="tags"> <br>
-  <button type="submit" class="btn btn-primary">Shorten <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+  <input required autofocus type="url" pattern="https?://.+" placeholder="INSERT YOUR LONG URL HERE" class="form-control" [(ngModel)]="link.longUrl"
+    name="longUrl"> <br>
+    <input required type="text" placeholder="WRITE DESCRIPTION" class="form-control" [(ngModel)]="link.description" name="description">    <br>
+    <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="tags" name="tags"> <br>
+    <button type="submit" class="btn btn-primary">Shorten <i class="fa fa-bolt" aria-hidden="true"></i></button>
 </form>
-<div *ngIf="error"  class="mt-2 alert alert-danger">{{error}}</div>
+<div *ngIf="error" class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{error}}
+</div>
+
 <br>
-<div *ngIf="shortedLinkUrl" class="row">
-    <div class="col-md-6 col-sm-12">
+<div *ngIf="shortedLinkUrl" class="row mb-5">
+  <div class="col-md-6 col-sm-12">
     <div class="input-group">
-            <label class="mt-2" for="shortUrlInput">
-       Short Url <i class="fa fa-chevron-right"></i> <i class="fa fa-chevron-right"></i> 
+      <label class="mt-2" for="shortUrlInput">
+       Short Url <i class="fa fa-chevron-right"></i> <i class="fa fa-chevron-right"></i>
       </label>
       <input id="shortUrlInput" type="url" class="form-control" #shortUrlInput value="{{shortedLinkUrl | url}}" readonly="readonly">
       <span class="input-group-btn">
@@ -19,6 +29,9 @@
                 Copy
         </button>
       </span>
-    </div><!--input-group-->
-  </div><!--col-->
-</div><!--row-->
+    </div>
+    <!--input-group-->
+  </div>
+  <!--col-->
+</div>
+<!--row-->

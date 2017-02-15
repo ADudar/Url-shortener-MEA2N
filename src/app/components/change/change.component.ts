@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ChangeComponent implements OnInit, OnDestroy {
   // @Input()
-  link;
+  link : Link;
   paramsSubscription : Subscription;
   message;
   // finishedEdit = new EventEmitter();
@@ -55,15 +55,9 @@ ngOnDestroy() : void {
 
 UpdateUrl() {
       this.linkService.updateLink(this.link)
-      .subscribe(data => { 
+      .subscribe(data => {
         this.message = data.message;
-        //  this.router.navigateByUrl('/home');
-        //  this.link = null;
-        // this.router.navigate(['/home']);
       });
 
 }
-  goBack(): void {
-    this.location.back();
-  }
 }

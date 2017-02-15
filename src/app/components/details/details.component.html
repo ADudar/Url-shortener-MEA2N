@@ -1,14 +1,20 @@
 <h1>Details url:</h1>
+  <i *ngIf="isLoading" class="fa fa-spinner fa-spin fa-fw"></i>
 <div *ngIf="link">
   <ul>
     <li>Clicks: {{link.clicks}}</li>
     <li>Long URL : <a href="{{link.longUrl}}">{{link.longUrl}}</a></li>
     <li>Short URL: <a href=" {{link.shortUrl}}" target="_blank">{{link.shortUrl | url}}</a></li>
-    <li>Tags: <span *ngFor="let tag of tagsArray"><a [routerLink] (click)="getLinksByTag(tag)" >{{tag}} </a></span>
+    <li>Tags:
+      <span *ngFor="let tag of tagsArray">
+        <a [routerLink] (click)="getLinksByTag(tag)" >{{tag}}</a>
+      </span>
     </li>
     <li>Description: {{link.description}}</li>
   </ul>
-  <button type="button" class="btn btn-lg btn-secondary" (click)="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Go back</button>
+  <button type="button" class="btn btn-lg btn-secondary" [routerLink]="['/home']">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i> Go back
+  </button>
 </div>
 <div *ngIf="links.length>0" class="row mt-5">
   <h4>Links with tag: {{tag}}</h4>
@@ -16,8 +22,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <!--<th>ID</th>
-          <th>User ID</th>-->
+          <!--<th>User ID</th>-->
           <th>Long Url</th>
           <th>Short Url</th>
           <th>Description</th>
@@ -27,19 +32,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let link of links">
-          <!--<td class="break-word">{{link._id}} </td>
-          <td class="break-word"> {{link.user_id}} </td>-->
-          <td> <a  class="break-word" href="{{link.longUrl}}" target="_blank">{{link.longUrl}}</a> </td>
+          <td> <a class="break-word " href="{{link.longUrl}}" target="_blank">{{link.longUrl}}</a> </td>
           <td> <a href="{{link.shortUrl | url}} " target="_blank">{{link.shortUrl | url}}</a></td>
           <td> {{link.description}} </td>
-          <td> {{link.tags[0] | tags}} </td>
+          <td> {{link.tags | tags}} </td>
           <td> {{link.clicks}} </td>
-          <td> </td>
         </tr>
       </tbody>
     </table>
   </div>
-</div><!--row-->
-
-
-<!--todo: table in two rows-->
+</div>
+<!--row-->

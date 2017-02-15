@@ -2,14 +2,15 @@
   <div class="page-header">
     <h1>Change URL</h1>
   </div>
-  <form class="form" role="form" (submit)="UpdateUrl()" >
+  <form class="form " role="form" (submit)="UpdateUrl()">
     <div class="form-group">
       <label class="control-label">Long URL</label>
-      <input type="url" pattern="https?://.+"  title="Enter URL which start with http:// or https://" class="form-control" [(ngModel)]="link.longUrl" name="longUrl">
+      <input type="url" pattern="https?://.+" title="Enter URL which start with http:// or https://" class="form-control" [(ngModel)]="link.longUrl"
+        name="longUrl">
     </div>
     <div class="form-group">
       <label class="control-label">Short Url</label>
-      <input  type="text" class="form-control" [(ngModel)]="link.shortUrl" name="shortUrl">
+      <input type="text" class="form-control" [(ngModel)]="link.shortUrl" name="shortUrl">
     </div>
     <div class="form-group">
       <label class="control-label">Description</label>
@@ -17,26 +18,29 @@
     </div>
     <div class="form-group">
       <label class="control-label">Tags</label>
-      <input type="text" class="form-control" [(ngModel)]="link.tags[0]" name="tags">
+      <input type="text" class="form-control" [(ngModel)]="link.tags" name="tags">
     </div>
     <div class="form-group">
       <label class="control-label">Clicks</label>
       <input type="number" min="0" class="form-control" [(ngModel)]="link.clicks" name="clicks">
     </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-6">
-        <button type="submit" class="btn btn-success btn-lg btn-block">Update Url</button>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <button type="submit" class=" btn  btn-success btn-lg  btn-block">Update Url</button>
+      </div>
+      <div class="form-group  col-sm-6">
+        <button class=" btn btn-secondary btn-lg btn-block" [routerLink]="['/home']">Back</button>
       </div>
     </div>
-    <div >
-      <div class="col-sm-offset-2 col-sm-6">
-        <button class="btn btn-secondary btn-lg btn-block" (click)="goBack()">Cancel</button>
-      </div>
-    </div>
-        <div *ngIf="message"  class="mt-1 col-sm-6 col-sm-offset-2">
-            <div class="alert alert-info">
-                {{ message }}
-            </div>
-        </div>
   </form>
+  <div *ngIf="message" class="row mt-2">
+    <div class=" col-sm-6 offset-sm-3">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="message=''">
+    <span aria-hidden="true">&times;</span>
+  </button>
+        {{message}}
+      </div>
+    </div>
+  </div>
 </main>

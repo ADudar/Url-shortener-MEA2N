@@ -1,21 +1,21 @@
-<nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+<nav class="navbar navbar-toggleable-sm navbar-light bg-faded pl-0 pr-0">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="['/home']"><i class="fa fa-link" aria-hidden="true"></i> Url Shortener</a>
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="active"><i class="fa fa-link" aria-hidden="true"></i> Url Shortener</a>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
 
       <li *ngIf="!this.auth.loggedIn" class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']">Login </a>
+        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login </a>
       </li>
 
       <li *ngIf="!this.auth.loggedIn" class="nav-item">
-        <a class="nav-link" [routerLink]="['/signup']">Signup</a>
+        <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="active">Signup</a>
       </li>
       <li *ngIf="this.auth.loggedIn" class="nav-item">
-        <a class="nav-link" [routerLink]="['/home']">Home</a>
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Home</a>
       </li>
 </ul>
 <ul *ngIf="this.auth.loggedIn" class="navbar-nav mr-0 mt-2 mt-sm-0">
@@ -23,7 +23,7 @@
     Hello {{this.auth.username}}
   </span>
   <li class="nav-item pull-right">
-    <a [routerLink] (click)="logout()" role="button" class="nav-link " [routerLink]="['/home']">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+    <a [routerLink] routerLinkActive="active" (click)="logout()" role="button" class="nav-link pr-0 " [routerLink]="['/home']" routerLinkActive="active">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </li>
 </ul>
   </div>

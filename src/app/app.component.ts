@@ -11,24 +11,20 @@ import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 })
 export class AppComponent {
   constructor(private router: Router,
-              private auth : AuthenticationService){
+              private auth : AuthenticationService
+           ){
 
     if (tokenNotExpired()) {
       console.log('guard token not expired ');
       this.auth.loggedIn = true;
       var token = localStorage.getItem('id_token');
-      
       this.auth.username = (new JwtHelper).decodeToken(token).username;
-      
+      this.auth.user_id = (new JwtHelper).decodeToken(token).user_id;
+
       // this.auth.getCurrentUser()
       // .subscribe(username => {this.auth.loggedIn = true;this.auth.username = username;});
       // console.log(this.auth.Token);// auth.token = undefined
       // return true;
     }
-
-
               }
-
-
-
 }

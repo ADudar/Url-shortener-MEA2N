@@ -8,7 +8,7 @@
     <div class="form-group row" [ngClass]="{ 'has-danger': usernameField.touched && usernameField.invalid, 'has-success' : usernameField.valid  }">
       <label class="col-sm-2 col-form-label" for="username">Username</label>
       <div class="col-sm-10">
-        <input type="text" required pattern="^[a-zA-Z0-9_.-]*$" [ngClass]="{ 'form-control-danger': usernameField.touched && usernameField.invalid, 'form-control-success': usernameField.valid}"
+        <input type="text" required autofocus pattern="^[a-zA-Z0-9_.-]*$" [ngClass]="{ 'form-control-danger': usernameField.touched && usernameField.invalid, 'form-control-success': usernameField.valid}"
           class="form-control" name="username" placeholder="Username" [(ngModel)]="username" #usernameField="ngModel" />
         <div *ngIf="usernameField.touched && usernameField.invalid" class="alert alert-danger mt-1">Username is required</div>
       </div>
@@ -26,9 +26,16 @@
       <button [disabled]="isLoading || form.invalid" class="btn btn-primary">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
      <i *ngIf="isLoading"  class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
     </div>
-    <div *ngIf="error" class="alert alert-danger mt-1">
-      {{ error }}
+  <div *ngIf="error" class="row mt-2">
+    <div class=" col-sm-6">
+      <div class="alert alert-success alert-danger fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+        {{error}}
+      </div>
     </div>
-    <a [routerLink]="['/signup']">Click here to Signup</a>
+  </div>
+    <a [routerLink]="['/signup']" routerLinkActive="active">Click here to Signup</a>
   </form>
 </div>

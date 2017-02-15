@@ -24,37 +24,25 @@ export class LinkFormComponent {
 
 
   AddLink(): void {
-    console.log("method add in link-form call");
     this.link.shortUrl = this.getShortUrl();
     this.link.clicks = 0;
     this.link.tags = this.tags.split(/[' ,.']/).filter(tag => tag!='');
-    console.log("here need to be tags in array");
-    console.log(this.link.tags);
-    this.auth.getCurrentUser()
-    .subscribe(user => {
-      this.link.user_id = user._id;
-          console.log("here need link full with id:");
-    console.log(this.link);
+      this.link.user_id = this.auth.user_id;
     this.linkService.addLink(this.link)
       .subscribe(
       data => {
-        console.log('data from json');
-        console.log(data);
 if(data.success== true) {
+          this.link._id = data._id;
           this.addLink.emit(this.link);
               this.shortedLinkUrl = this.link.shortUrl;
-        this.link = new Link();  
+        this.link = new Link();
+        this.tags = ''  ;
         this.error = '';
 }
 else {
   this.error = data.message;
 }
-   //for clear the fields
       });
-
-    });
-
-
   }
 
   EncodeURL(): string {
@@ -68,42 +56,8 @@ else {
     return text;
   }
 
-  private makeId() {
-    return Math.floor((Math.random() * 1000));
-
-  }
-
-
   private getShortUrl(): string {
     return  this.EncodeURL();
   }
-
-  private generateID(): void {
-    this.link._id = this.makeId();
-  }
-
-  // ngOnInit(): void {
-  //   this.route.params
-  //     .switchMap((params: Params) => this.linkService.getLink(+params['_id']))
-  //     .subscribe(link => this.link = link);
-  // }
-
-  // save(): void {
-  //   this.linkService.update(this.link)
-  //     .then(() => this.goBack());
-  // }
-
-  // AddLink(): void {
-
-  //   this.getShortUrl();
-  //   this.generateID();
-  //   this.processTags();
-  //   this.link.clicks = 0;
-  //   this.shortedLinkUrl = this.link.shortUrl;
-  //   this.submitForm.emit(this.link);
-  //   // this.links.unshift(this.link);
-  //   this.link = new Link();     //for clear the fields
-  // }
-
 
 }

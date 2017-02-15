@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
         // this.checkAuth() ;
         // reset login status
-        this.auth.logout();
+        // this.auth.logout();
     }
 
 
@@ -83,8 +83,8 @@ export class LoginComponent implements OnInit {
     //     //             this.isLoading = false;
     //     //         }
     //     //     });
-        
-        
+
+
     //     if (this.auth.login(this.username, this.password)) {
     //         //   const destination =
     //         //     this.route.snapshot.queryParams['destination'] || '/';

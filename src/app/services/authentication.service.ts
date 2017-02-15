@@ -21,7 +21,7 @@ export class AuthenticationService {
   constructor(private http: Http,
               private router: Router) {
 
-     
+
   }
 
 
@@ -31,6 +31,7 @@ export class AuthenticationService {
       this.loggedIn = true;
       var token = localStorage.getItem('id_token');
       this.username = (new JwtHelper).decodeToken(token).username;
+      this.user_id = (new JwtHelper).decodeToken(token).user_id;
 
       return true;
     }
@@ -40,7 +41,7 @@ export class AuthenticationService {
       getCurrentUser() {
               console.log('auth service getcuurent user');
 
-          return this.http.get('/api/user/filter?username='+ this.username) 
+          return this.http.get('/api/user/filter?username='+ this.username)
                             .map(res =>  res.json());
   }
 
@@ -49,7 +50,7 @@ export class AuthenticationService {
     let body = JSON.stringify({ username, password, email });
     return this.http.post(url, body, { headers: contentHeaders })
       .map((response) => {
-
+        console.log(response);
         // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
         if (token) {
@@ -76,7 +77,7 @@ export class AuthenticationService {
 
   signup(username, password, email): Observable<boolean> {
 
-    return this.authenticate(username, password, '/api/users', email)
+    return this.authenticate(username, password, '/api/user', email)
   }
 
   logout(): void {

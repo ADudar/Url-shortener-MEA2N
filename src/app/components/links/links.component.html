@@ -1,37 +1,76 @@
-<table class="table table-hover table-responsive " *ngIf="links.length > 0 ">
+
+<h3 *ngIf="isLoading">Loading...
+  <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+</h3>
+<table class=" table   table-hover table-responsive " *ngIf="links.length > 0 ">
   <thead>
     <tr>
-      <th> LONGURL</th>
-      <th> SHORTURL</th>
-      <th> DESCRIPTION</th>
-      <th> TAGS</th>
-      <th (click)="orderByClicks()"> CLICKS</th>
+      <th> LONGURL<i (click)="sortByProperty('longUrl')" class="fa-inline fa fa-sort cursor-pointer" aria-hidden="true"></i></th>
+      <th> SHORTURL<i (click)="sortByProperty('shortUrl')" class="fa-inline fa fa-sort cursor-pointer" aria-hidden="true"></i></th>
+      <th> DESCRIPTION<i (click)="sortByProperty('description')" class="fa-inline fa fa-sort cursor-pointer" aria-hidden="true"></i></th>
+      <th> TAGS<i (click)="sortByProperty('tags')" class="fa-inline fa fa-sort cursor-pointer" aria-hidden="true"></i></th>
+      <th> CLICKS<i (click)="sortByProperty('clicks')" class="fa-inline fa fa-sort cursor-pointer" aria-hidden="true"></i></th>
       <th> ABOUT</th>
       <th> CHANGE</th>
       <th> DELETE</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let link of links">
+    <tr *ngFor="let link of links | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalCount }">
       <td>
-        <a class="long-url" href="{{link.longUrl}}" target="_blank">{{link.longUrl}} </a>
+        <a class="break-word" href="{{link.longUrl}}" target="_blank">{{link.longUrl}} </a>
       </td>
       <td><a [routerLink]="['/', link.shortUrl]" target="_blank"> {{link.shortUrl | url}}  </a></td>
       <td> {{link.description}}</td>
       <td> {{link.tags | tags}}</td>
       <td> {{link.clicks}}</td>
-      <td><a [routerLink]="['/details', link.shortUrl]"> details </a></td>
-      <td><a class="btn btn-warning" [routerLink]="['/change', link._id]">Change
+      <td><a [routerLink]="['../', link.shortUrl, 'details']"> details </a></td>
+      <td><a class="btn btn-warning" [routerLink]="['/change', link._id]">Edit <i class="fa fa-pencil" aria-hidden="true"></i>
             </a></td>
       <td>
-        <button (click)="deleteLink(link._id)" class="btn btn-danger">Delete</button>
+        <button type="button" data-toggle="modal" (click)="onDelete(link)"  data-target="#exampleModal"  class="btn btn-danger" >Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+<div  class="modal fade top-20-percent" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this link?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+              </div>
+              <div class="modal-body break-word">
+                <a href="{{linkToDelete.longUrl}}" target="_blank">{{linkToDelete.longUrl}}</a>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="deleteLink()" data-dismiss="modal" >Delete <i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+          </div>
       </td>
     </tr>
   </tbody>
-  <h3>Total clicks: {{getTotalClicks()}} </h3>
-  <h3>Total links: {{getTotalLinks()}} </h3>
 </table>
-<h3 *ngIf="isLoading">Loading...
- <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
-</h3>
+<div *ngIf="links.length > 0 ">
+    <h3>Total clicks: {{totalClicks}} </h3>
+  <h3>Total links: {{totalCount}} </h3>
+  <div class="mt-3 row ">
+    <div class=" col-sm-6 col-12">
+          <span class="ml-5">links on page</span>
+          <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group " role="group">
+              <button [ngClass]="{active:itemsPerPage ==5}"  (click)=onPerPageChanged(5) class="btn btn-secondary active cursor-pointer">5</button>
+              <button [ngClass]="{active: itemsPerPage==10}" (click)=onPerPageChanged(10) class="btn btn-secondary cursor-pointer ">10</button>
+              <button [ngClass]="{active:itemsPerPage == 15}"  (click)=onPerPageChanged(15) class="btn btn-secondary cursor-pointer ">15</button>
+              <button  (click)=onPerPageChanged(totalCount) class="btn btn-secondary cursor-pointer ">All</button>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm-6 col-12 align-self-end ">
+      <pagination-controls class="  cursor-pointer no-padding-left" (pageChange)=" OnPageChange($event)"></pagination-controls>
+    </div>
+  </div>
+</div>
 <h3 *ngIf=" !isLoading && links.length == 0"> You haven't short links!</h3>
