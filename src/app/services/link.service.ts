@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Link } from '../models/link';
-import { LINKS } from '../mock-links';
 import { AuthHttp } from 'angular2-jwt';
 import { contentHeaders } from '../common/headers';
 import 'rxjs/add/operator/map';
@@ -17,32 +16,31 @@ export class LinkService {
       });
   }
 
-      getUsersLinksPage(user_id = '', itemsPerPage = 10, page = 1) {
-            return this.authHttp
-            .get('api/links/filter?user_id='  + user_id
-                                              + '&itemsPerPage='
-                                              + itemsPerPage
-                                              + '&page='
-                                              + page, { headers: contentHeaders })
-            .map(res => res.json());
-    }
+  getUsersLinksPage(user_id = '', itemsPerPage = 10, page = 1) {
+    return this.authHttp
+      .get('api/links/filter?user_id=' + user_id
+      + '&itemsPerPage='
+      + itemsPerPage
+      + '&page='
+      + page, { headers: contentHeaders })
+      .map(res => res.json());
+  }
 
   getLinkById(id: number) {
-    console.log('get link by id call, id = ' + id);
     return this.authHttp.get('/api/links/' + id, { headers: contentHeaders })
       .map(res => res.json());
   }
 
   getLinkByShortUrl(shortUrl: string) {
     return this.http
-    .get('/api/' + shortUrl + '/details', {headers: contentHeaders})
-    .map (res => res.json());
+      .get('/api/' + shortUrl + '/details', { headers: contentHeaders })
+      .map(res => res.json());
   }
 
   redirect(shortUrl: string) {
     return this.http
-    .get('/api/redirect/' + shortUrl, { headers: contentHeaders })
-    .map (longUrl => longUrl.json());
+      .get('/api/redirect/' + shortUrl, { headers: contentHeaders })
+      .map(longUrl => longUrl.json());
   }
 
   deleteLink(id: number) {
@@ -53,11 +51,11 @@ export class LinkService {
       });
   }
 
-  addLink(link: Link)  {
+  addLink(link: Link) {
     const body = JSON.stringify(link);
     return this.authHttp
       .post('/api/links', body, { headers: contentHeaders })
-      .map( data => data.json());
+      .map(data => data.json());
   }
 
   updateLink(link: Link) {
@@ -68,13 +66,13 @@ export class LinkService {
 
   getLinksByTag(tag: string) {
     return this.http
-    .get('api/link/filter?tag=' + tag, { headers : contentHeaders })
-    .map(data => data.json());
+      .get('api/link/filter?tag=' + tag, { headers: contentHeaders })
+      .map(data => data.json());
   }
 
-  getTotalClicks(user_id : number) {
-      return this.authHttp
-        .get('api/links/clicks?user_id=' + user_id)
-        .map (data => data.json());
+  getTotalClicks(user_id: number) {
+    return this.authHttp
+      .get('api/links/clicks?user_id=' + user_id)
+      .map(data => data.json());
   }
 }

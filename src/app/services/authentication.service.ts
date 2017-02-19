@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { contentHeaders } from '../common/headers';
-import { User } from '../models/user';
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 
 
@@ -12,72 +11,55 @@ import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 export class AuthenticationService {
 
   private token: string;
-  get Token(): string {return this.token;}
+  get Token(): string { return this.token; }
   loggedIn = false;
   public username;
-  public  user_id;
-  // public  user : User ;
+  public user_id;
 
   constructor(private http: Http,
-              private router: Router) {
+    private router: Router) { }
 
 
-  }
-
-
-      isLoggedIn(): boolean {
-      if (tokenNotExpired()) {
-      console.log('guard token not expired ');
+  isLoggedIn(): boolean {
+    if (tokenNotExpired()) {
       this.loggedIn = true;
-      var token = localStorage.getItem('id_token');
+      let token = localStorage.getItem('id_token');
       this.username = (new JwtHelper).decodeToken(token).username;
       this.user_id = (new JwtHelper).decodeToken(token).user_id;
-
       return true;
     }
     return false;
-      }
-
-      getCurrentUser() {
-              console.log('auth service getcuurent user');
-
-          return this.http.get('/api/user/filter?username='+ this.username)
-                            .map(res =>  res.json());
   }
 
+  getCurrentUser() {
+    return this.http.get('/api/user/filter?username=' + this.username)
+      .map(res => res.json());
+  }
 
-  authenticate(username, password, url, email=''): Observable<boolean> {
+  authenticate(username, password, url, email = ''): Observable<any> {
     let body = JSON.stringify({ username, password, email });
     return this.http.post(url, body, { headers: contentHeaders })
       .map((response) => {
-        console.log(response);
-        // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
         if (token) {
-          this.token = token; //set token property
+          this.token = token;
           this.username = username;
-          // store username and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('id_token', token);
           this.loggedIn = true;
-                // this.getCurrentUser();
-
-          return true; //login success
+          return response.json();
         } else {
-          this.loggedIn = false; //login failed
-          return false;
+          this.loggedIn = false;
+          return response.json();
         }
       });
-
   }
 
-  login(username, password): Observable<boolean> {
-
-    return this.authenticate(username, password, 'api/login')
+  login(username, password): Observable<any> {
+    return this.authenticate(username, password, 'api/login');
   }
 
-  signup(username, password, email): Observable<boolean> {
-
-    return this.authenticate(username, password, '/api/user', email)
+  signup(username, password, email): Observable<any> {
+    return this.authenticate(username, password, '/api/user', email);
   }
 
   logout(): void {
@@ -85,6 +67,6 @@ export class AuthenticationService {
     this.token = null;
     localStorage.removeItem('id_token');
     this.loggedIn = false;
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 }

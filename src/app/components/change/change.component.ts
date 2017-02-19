@@ -1,11 +1,9 @@
-import { Subscription } from'rxjs/Subscription';
-import { Component, OnInit,OnDestroy, Input, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Location }               from '@angular/common';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Link } from '../../models/link';
 import { LinkService } from '../../services/link.service';
 import 'rxjs/add/operator/switchMap';
-
 
 @Component({
   selector: 'app-change',
@@ -13,51 +11,40 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./change.component.less']
 })
 export class ChangeComponent implements OnInit, OnDestroy {
-  // @Input()
-  link : Link;
-  paramsSubscription : Subscription;
+  link: Link;
+  paramsSubscription: Subscription;
   message;
-  // finishedEdit = new EventEmitter();
+  isLoading = true;
+
+ ngTagsModel = '';
 
   constructor(
-      private linkService: LinkService,
-      private route: ActivatedRoute,
-      private router: Router,
-      private location: Location ) {
-
-
+    private linkService: LinkService,
+    private route: ActivatedRoute
+  ) {
   }
 
+
   ngOnInit(): void {
-            this.paramsSubscription = this.route.params.subscribe( params => {
-           this.linkService.getLinkById(params['_id']).subscribe(link => this.link = link);
-        });
+    this.paramsSubscription = this.route.params.subscribe(params => {
+      this.linkService.getLinkById(params['_id']).subscribe(link => {
+        this.link = link;
+        this.ngTagsModel = this.link.tags.join(' ');
+        this.isLoading = false;
+      });
+    });
+  }
 
-      // .subscribe(link => this.link = link);
-}
+  ngOnDestroy(): void {
+    this.paramsSubscription.unsubscribe();
+  }
 
-ngOnDestroy() : void {
-  this.paramsSubscription.unsubscribe();
+  UpdateUrl() {
 
-}
-
-  // initLink(): void {
-  //   this.shortedLinkUrl = this.link.shortUrl;
-  //   this.linkService.addLink(this.link)
-  //     .subscribe(
-  //     data => {
-  //       this.addLink.emit(this.link);
-  //       this.link = new Link();     //for clear the fields
-  //     });
-  // }
-
-
-
-UpdateUrl() {
-      this.linkService.updateLink(this.link)
+    this.link.tags = this.ngTagsModel.split(/[\-_#,\s]/).filter(tag => tag !== '');
+    this.linkService.updateLink(this.link)
       .subscribe(data => {
         this.message = data.message;
       });
-
-}
+  }
 }

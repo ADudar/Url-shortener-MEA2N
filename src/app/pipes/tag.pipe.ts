@@ -5,16 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TagPipe implements PipeTransform {
 
-  transform(tags: string[] | string, args?: any): string {
-    if (Array.isArray(tags))
+  transform(tags: string[] | string, args?: string): string {
+    if (Array.isArray(tags)) {
       return '#' + tags.join(' #');
-    else {
-      var tagsArray = tags.split(/[' ,']/).filter(v => v != '');
-      tags = "";
-      tagsArray.forEach(tag => {
-        tags += "#" + tag + " ";
-      });
-      return tags;
     }
   }
 }

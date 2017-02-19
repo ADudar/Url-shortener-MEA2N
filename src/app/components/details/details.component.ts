@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Link } from '../../models/link';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location }               from '@angular/common';
 import { LinkService } from '../../services/link.service';
 @Component({
   selector: 'app-details',
@@ -12,12 +11,11 @@ export class DetailsComponent implements OnInit {
   link: Link;
   tagsArray = [];
   links: Link[] = [];
-  tag ='';
+  tag = '';
   isLoading = true;
   constructor(
     private linkService: LinkService,
-    private route: ActivatedRoute,
-    private location: Location
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +32,9 @@ export class DetailsComponent implements OnInit {
          this.tagsArray = this.link.tags;
   }
 
-  getLinksByTag(tag : string) {
+  getLinksByTag(tag: string) {
     this.tag = tag;
     this.linkService.getLinksByTag(tag)
-    .subscribe( links =>{ this.links = links});
+    .subscribe( links => { this.links = links; });
   }
 }

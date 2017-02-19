@@ -6,7 +6,16 @@
     name="longUrl"> <br>
     <input required type="text" placeholder="WRITE DESCRIPTION" class="form-control" [(ngModel)]="link.description" name="description">    <br>
     <input required type="text" placeholder="WRITE TAGS" class="form-control" [(ngModel)]="tags" name="tags"> <br>
+    <div class="row">
+      <div class="col-6">
     <button type="submit" class="btn btn-primary">Shorten <i class="fa fa-bolt" aria-hidden="true"></i></button>
+      </div>
+      <div class="col-6">
+        <a name="refreshButton" id="refreshButton" (click)="onRefreshPage()" class="btn btn-secondary  pull-right" role="button">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div><!--row-->
 </form>
 <div *ngIf="error" class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

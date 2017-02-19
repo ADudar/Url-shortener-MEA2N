@@ -1,4 +1,3 @@
-
 <h3 *ngIf="isLoading">Loading...
   <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
 </h3>
@@ -25,7 +24,7 @@
       <td> {{link.tags | tags}}</td>
       <td> {{link.clicks}}</td>
       <td><a [routerLink]="['../', link.shortUrl, 'details']"> details </a></td>
-      <td><a class="btn btn-warning" [routerLink]="['/change', link._id]">Edit <i class="fa fa-pencil" aria-hidden="true"></i>
+      <td><a class="btn btn-warning" [routerLink]="['change', link._id]">Edit <i class="fa fa-pencil" aria-hidden="true"></i>
             </a></td>
       <td>
         <button type="button" data-toggle="modal" (click)="onDelete(link)"  data-target="#exampleModal"  class="btn btn-danger" >Delete <i class="fa fa-trash" aria-hidden="true"></i></button>

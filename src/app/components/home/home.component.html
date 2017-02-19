@@ -1,2 +1,2 @@
-<app-link-form (addLink)="OnAddLink($event)"></app-link-form>
-<app-links    [link]= "link"></app-links>
+<app-link-form  (refreshPage)="links.getUsersLinks()"  (addLink)="OnAddLink($event)"></app-link-form>
+<app-links  #links  [link]= "link"></app-links>

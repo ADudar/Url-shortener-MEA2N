@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Link } from '../../models/link';
-// import { UserService } from '../../services/user.service';
-import { LinkService } from '../../services/link.service';
-import { AuthenticationService } from '../../services/authentication.service';
-
+import { Link } from '../../../models/link';
+import { LinkService } from '../../../services/link.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-links',
@@ -11,7 +9,6 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./links.component.less']
 })
 export class LinksComponent implements OnInit, OnChanges {
-public radioModel: string = 'Middle';
 
   links: Link[] = [];
   totalCount: number;
@@ -21,14 +18,11 @@ public radioModel: string = 'Middle';
   @Input() link: Link;
   isLoading = true;
   linkToDelete: Link = new Link();
+  ascSort = true;
 
   constructor(
-    // private userService: UserService,
     private linkService: LinkService,
-    // private http: Http,
-    // private router: Router,
     private auth: AuthenticationService,
-    // private authHttp: AuthHttp
   ) {
   }
 
@@ -45,11 +39,7 @@ public radioModel: string = 'Middle';
   }
 
   getUsersLinks() {
-    // this.auth.getCurrentUser()
-      // .subscribe((user) => {
-        // this.auth.user_id = user._id;
-        this.OnPageChange(this.currentPage);
-      // });
+    this.OnPageChange(this.currentPage);
   }
 
   OnPageChange(page = 1) {
@@ -82,23 +72,20 @@ public radioModel: string = 'Middle';
 
 
   getTotalClicks() {
-    // this.auth.getCurrentUser()
-    // .subscribe(user => {
-      // this.auth.user_id = user._id;
-            this.linkService.getTotalClicks(this.auth.user_id)
-    .subscribe(res => this.totalClicks = res.totalClicks);
-  // });
+    this.linkService.getTotalClicks(this.auth.user_id)
+      .subscribe(res => this.totalClicks = res.totalClicks);
   }
 
-ascSort  = true;
-sortByProperty(property : string) {
 
-      if (this.ascSort)  this.links.sort((a, b) => a[property] > b[property] ? 1 :  a[property] === b[property]?0:-1  );
-    else this.links.sort((a, b) => a[property] <b[property] ? 1 :  a[property] === b[property]?0:-1 );
+  sortByProperty(property: string) {
 
-      this.ascSort  = !this.ascSort;
-
-}
+    if (this.ascSort) {
+      this.links.sort((a, b) => a[property] > b[property] ? 1 : a[property] === b[property] ? 0 : -1);
+    } else {
+      this.links.sort((a, b) => a[property] < b[property] ? 1 : a[property] === b[property] ? 0 : -1);
+    }
+    this.ascSort = !this.ascSort;
+  }
 
   onPerPageChanged(cnt = 10) {
     this.itemsPerPage = cnt;

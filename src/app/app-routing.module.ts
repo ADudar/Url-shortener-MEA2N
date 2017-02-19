@@ -12,16 +12,10 @@ const routes: Routes = [
   { path: '', redirectTo: ('/login'), pathMatch: 'full' },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent
-  , canActivate: [AuthGuard]
- },
-  { path: 'change/:_id', component: ChangeComponent },
-  // { path: 'details/:shortUrl', component: DetailsComponent }
-  { path: ':shortUrl/details', component: DetailsComponent }
-  // ,   { path: ':id', redirectTo: 'api/:id' }
-  // , { path: 'redirect/:id', component: RedirectComponent }
-  , { path: ':id', component: RedirectComponent }
-  , { path: '**', component: LoginComponent }
+  { path: 'home', canActivate: [AuthGuard] , loadChildren: 'app/components/home/home.module#HomeModule' },
+  { path: ':shortUrl/details', component: DetailsComponent },
+  { path: ':id', component: RedirectComponent },
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({
