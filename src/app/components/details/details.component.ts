@@ -5,7 +5,7 @@ import { LinkService } from '../../services/link.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.less']
+  styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
   link: Link;

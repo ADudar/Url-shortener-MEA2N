@@ -7,7 +7,7 @@ import { JwtHelper, tokenNotExpired } from 'angular2-jwt';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   constructor(private router: Router,

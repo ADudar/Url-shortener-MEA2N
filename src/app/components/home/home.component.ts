@@ -4,7 +4,7 @@ import { Link } from '../../models/link';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent {

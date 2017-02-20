@@ -6,7 +6,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 @Component({
   selector: 'app-link-form',
   templateUrl: './link-form.component.html',
-  styleUrls: ['./link-form.component.less']
+  styleUrls: ['./link-form.component.css']
 })
 export class LinkFormComponent {
 

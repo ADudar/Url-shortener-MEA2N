@@ -6,7 +6,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 @Component({
   selector: 'app-links',
   templateUrl: './links.component.html',
-  styleUrls: ['./links.component.less']
+  styleUrls: ['./links.component.css']
 })
 export class LinksComponent implements OnInit, OnChanges {
 
