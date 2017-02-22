@@ -1,8 +1,6 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
 
-var linkSchema = new Schema({
-
+export const linkSchema = new Schema({
   longUrl: {
     type: String,
     required: [true, 'Long url must exist'],
@@ -18,7 +16,7 @@ var linkSchema = new Schema({
     type: Number,
     required: [true, 'Count clicks must exist'],
     default: 0,
-    min:0
+    min: 0
 
   },
   description: {
@@ -44,16 +42,5 @@ var linkSchema = new Schema({
   }
 });
 
-// var handleE11000 = function (error, res, next) {
-//   if (error.name === 'MongoError' && error.code === 11000) {
-//     next(new Error('This link is already exist!'));
-//   } else {
-//     next();
-//   }
-// };
-
-// linkSchema.post('save', handleE11000);
-
-var Link = mongoose.model('Link', linkSchema);
-
-module.exports = Link;
+const Link = model('Link', linkSchema);
+export { Link }

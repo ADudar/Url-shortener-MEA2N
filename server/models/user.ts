@@ -1,9 +1,8 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-var SALT_WORK_FACTOR = 10;
-var Schema = mongoose.Schema;
+import { Schema, model } from 'mongoose';
+import { hash, genSalt } from 'bcryptjs';
+const SALT_WORK_FACTOR = 10;
 
-var userSchema = new Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -17,16 +16,16 @@ var userSchema = new Schema({
     required: true,
     unique: true,
     lowercase: true,
-    trim : true,
-    minlength:4,
-    maxlength:20
+    trim: true,
+    minlength: 4,
+    maxlength: 20
   },
   password: {
     type: String,
     required: true,
-    minlength:8,
-    maxlength:20,
-    select : false
+    minlength: 8,
+    maxlength: 20,
+    select: false
   },
   salt: {
     type: String,
@@ -39,13 +38,13 @@ var userSchema = new Schema({
 });
 
 userSchema.pre('save', function (next) {
-  var user = this;
+  const user = this;
 
-  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+  genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) {
       return next(err);
     }
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    hash(user.password, salt, (err, hash) => {
       if (err) {
         return next(err);
       }
@@ -56,6 +55,5 @@ userSchema.pre('save', function (next) {
   });
 });
 
-var User = mongoose.model('User', userSchema);
-
-module.exports = User;
+const User = model('User', userSchema);
+export { User }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Link } from '../../models/link';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LinkService } from '../../services/link.service';
+import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
