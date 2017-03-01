@@ -6,4 +6,9 @@ describe('UrlPipe', () => {
     const pipe = new UrlPipe();
     expect(pipe).toBeTruthy();
   });
+
+    it('should return correct value', () => {
+    const pipe = new UrlPipe();
+    const transformed = pipe.transform('qwerty');
+    expect(transformed).toMatch('^http.+qwerty$');
 });

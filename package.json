@@ -6,7 +6,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "concurrently --kill-others  \"ng serve --aot=false --proxy-config proxy.conf.json\"  \"npm run server\" ",
-    "test:karma": "ng test --watch=false",
+    "test:karma": "ng test --watch=true",
     "test:mocha": "npm run server:build && mocha ./dist/server/tests --recursive",
     "lint": "     concurrently \"npm run lint:server\" \"npm run lint:client\"   ",
     "lint:server": "tslint \"server/**/*.ts",
@@ -66,9 +66,7 @@
     "@angular/compiler-cli": "^2.4.0",
     "@types/chai-http": "0.0.30",
     "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
     "chai-http": "^3.0.0",
-    "codelyzer": "~2.0.0-beta.1",
     "concurrently": "^3.3.0",
     "jasmine-spec-reporter": "^3.2.0",
     "jwt-decode": "^2.1.0",
@@ -80,8 +78,6 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "protractor": "~5.1.0",
-    "should": "^11.2.0",
-    "supertest": "^3.0.0",
     "ts-node": "2.1.0",
     "tslint": "^4.3.0",
     "typescript": "~2.1.6"
