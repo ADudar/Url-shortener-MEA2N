@@ -4,7 +4,7 @@ import { registerUser, loginUser } from '../controllers/users.controller';
 
 // router.get('/users', usersController.getUserByUsername);
 usersRouter.route('/user')
-  .post(registerUser)
+  .post(registerUser);
 // .get(usersController.getAllUsers);
 usersRouter.post('/login', loginUser);
 // router.use('/users', usersController.jwtCheck);

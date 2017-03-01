@@ -1,10 +1,10 @@
 <nav class="navbar navbar-toggleable-sm navbar-light bg-faded pl-0 pr-0">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#my-navbar" aria-controls="my-navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="active"><i class="fa fa-link" aria-hidden="true"></i> Url Shortener</a>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+  <div class="collapse navbar-collapse" id="my-navbar">
     <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
 
       <li *ngIf="!this.auth.loggedIn" class="nav-item">

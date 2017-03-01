@@ -23,7 +23,7 @@ linksRouter.get('/links/filter', getUsersLinkByUserId);
 linksRouter.route('/links/:link_id')
   .get(getLinkById)
   .put(updateLinkById)
-  .delete(deleteLinkById)
+  .delete(deleteLinkById);
 
 linksRouter.get('/redirect/:id', getLongUrl);
 linksRouter.get('/:shortUrl/details', getLinkByShortUrl);

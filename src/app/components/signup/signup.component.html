@@ -1,80 +1,94 @@
 <div class="center-block jumbotron">
   <h2>Signup</h2><br>
   <form role="form" (ngSubmit)="signup()" novalidate #form="ngForm">
-    <div class="form-group row "
-     [ngClass]="{  'has-danger': usernameField.touched && usernameField.invalid,
-                      'has-success': usernameField.valid}"
-    >
+    <div class="form-group row " [ngClass]="{  'has-danger': usernameField.touched && usernameField.invalid,
+                      'has-success': usernameField.valid}">
       <label class="col-sm-2 col-form-label" for="username">Username</label>
       <div class="col-sm-10">
-        <input [(ngModel)]="username"  required pattern="^[a-zA-Z0-9_.-]*$" minlength="4" maxlength="15" #usernameField="ngModel"
-     [ngClass]="{  'form-control-danger': usernameField.touched && usernameField.invalid,
-                      'form-control-success': usernameField.valid}"
-          type="text" class="form-control" id="username" placeholder="Username" name="username" >
-        <div *ngIf="usernameField.touched && usernameField.invalid && (usernameField.errors.minlength || usernameField.errors.maxlength)"
-          class="alert alert-danger  mt-1"> Username can be 4-15 symbols</div>
-        <div *ngIf="usernameField.touched && usernameField.invalid && usernameField.errors.pattern" class="alert alert-danger mt-1"> Username can't contain this symbols'</div>
+        <input [(ngModel)]="username" required pattern="^[a-zA-Z0-9_.-]*$" minlength="4" maxlength="15" #usernameField="ngModel"
+          [ngClass]="{  'form-control-danger': usernameField.touched && usernameField.invalid,
+                      'form-control-success': usernameField.valid}" type="text" class="form-control" id="username" placeholder="Username"
+          name="username">
+          <div *ngIf="usernameField.touched && usernameField.invalid && (usernameField.errors.minlength || usernameField.errors.maxlength)"
+            class="alert alert-success alert-danger fade show mt-1" role="alert">
+            <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Username can be 4-15 symbols
       </div>
-    </div>
-    <div class="form-group row "
-         [ngClass]="{  'has-danger': passwordField.touched && usernameField.invalid,
-                      'has-success': passwordField.valid}"
-    >
-      <label class="col-sm-2 col-form-label" for="password">Password</label>
-      <div class="col-sm-10">
-        <input [(ngModel)]="password" required minlength="8" maxlength="15" minlength="8" maxlength="15" #passwordField="ngModel"
-        [ngClass]="{  'form-control-danger': passwordField.touched && passwordField.invalid,
-                      'form-control-success': passwordField.valid}"
-          type="password" class="form-control" id="password" placeholder="Password" name="password">
-        <div *ngIf="passwordField.touched && passwordField.invalid" class="alert alert-danger  mt-1"> Password can be 8-15 symbols</div>
+      <div *ngIf="usernameField.touched && usernameField.invalid && usernameField.errors.pattern" class="alert alert-success alert-danger fade show mt-1"
+        role="alert">
+        <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Username can't contain this symbols
+</div>
+</div>
+</div>
+<div class="form-group row " [ngClass]="{  'has-danger': passwordField.touched && usernameField.invalid,
+                      'has-success': passwordField.valid}">
+  <label class="col-sm-2 col-form-label" for="password">Password</label>
+  <div class="col-sm-10">
+    <input [(ngModel)]="password" required minlength="8" maxlength="15" minlength="8" maxlength="15" #passwordField="ngModel"
+      [ngClass]="{  'form-control-danger': passwordField.touched && passwordField.invalid,
+                      'form-control-success': passwordField.valid}" type="password" class="form-control" id="password" placeholder="Password"
+      name="password">
+      <div *ngIf="passwordField.touched && passwordField.invalid" class="alert alert-success alert-danger fade show mt-1" role="alert">
+        <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Password can be 8-15 symbols
       </div>
-    </div>
-    <div class="form-group row "
-             [ngClass]="{  'has-danger': passwordConfirmField.touched && usernameField.invalid,
+  </div>
+  </div>
+  <div class="form-group row " [ngClass]="{  'has-danger': passwordConfirmField.touched && usernameField.invalid,
                       'has-success': passwordConfirmField.valid}">
-      <label class="col-sm-2 col-form-label" for="password">Password confirm</label>
-      <div class="col-sm-10">
-        <input [(ngModel)]="passwordConfirm" required minlength="8" maxlength="15" #passwordConfirmField="ngModel" type="password"
+    <label class="col-sm-2 col-form-label" for="password">Password confirm</label>
+    <div class="col-sm-10">
+      <input [(ngModel)]="passwordConfirm" required minlength="8" maxlength="15" #passwordConfirmField="ngModel" type="password"
         [ngClass]="{  'form-control-danger': passwordConfirmField.touched && passwordConfirmField.invalid,
-                      'form-control-success': passwordConfirmField.valid}"
-          class="form-control" id="passwordConfirm" placeholder="Password" name="passwordConfirm">
-        <div *ngIf=" passwordConfirmField.touched && passwordConfirmField.value !== passwordField.value" class="alert alert-danger  mt-1">
-          Passwords didn't match
+                      'form-control-success': passwordConfirmField.valid}" class="form-control" id="passwordConfirm" placeholder="Password"
+        name="passwordConfirm">
+        <div *ngIf=" passwordConfirmField.touched && passwordConfirmField.value !== passwordField.value" class="alert alert-success alert-danger fade show mt-1"
+          role="alert">
+          <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Passwords didn't match
     </div>
-      </div>
     </div>
-    <div class="form-group row "
-                 [ngClass]="{  'has-danger': emailField.touched && usernameField.invalid,
+    </div>
+    <div class="form-group row " [ngClass]="{  'has-danger': emailField.touched && usernameField.invalid,
                       'has-success': emailField.valid}">
       <label class="col-sm-2 col-form-label" for="Email">Email</label>
       <div class="col-sm-10">
         <input [(ngModel)]="email" #emailField="ngModel" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        [ngClass]="{  'form-control-danger': emailField.touched && emailField.invalid,
-                      'form-control-success': emailField.valid}"
-          class="form-control" id="email" placeholder="Email" name="email">
-        <div *ngIf="emailField.invalid && emailField.touched && emailField.errors.required" class="alert alert-danger  mt-1">
-          Email is required
-    </div>
-        <div *ngIf="emailField.invalid && emailField.touched && emailField.errors.pattern" class="alert alert-danger  mt-1">
-          Email is invalid
-    </div>
+          [ngClass]="{  'form-control-danger': emailField.touched && emailField.invalid,
+                      'form-control-success': emailField.valid}" class="form-control" id="email" placeholder="Email" name="email">
+          <div *ngIf="emailField.invalid && emailField.touched && emailField.errors.required" class="alert alert-success alert-danger fade show mt-1"
+            role="alert">
+            <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Email is required
       </div>
-    </div>
-    <div class="form-group">
-      <button [disabled]="isLoading || form.invalid" type="submit" class="btn btn-primary">Signup <i class="fa fa-sign-in" aria-hidden="true"></i></button>
-      <i *ngIf="isLoading"  class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
-    </div>
-    <!-- message -->
-  <div *ngIf="error" class="row mt-2">
-    <div class=" col-sm-6">
-      <div class="alert alert-success alert-danger fade show" role="alert">
+      <div *ngIf="emailField.invalid && emailField.touched && emailField.errors.pattern" class="alert alert-success alert-danger fade show mt-1"
+        role="alert">
         <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
     <span aria-hidden="true">&times;</span>
-  </button>
-        {{error}}
-      </div>
-    </div>
-  </div>
-    <a [routerLink]="['/login']" routerLinkActive="active">Click here to Login</a>
-  </form>
-</div>
+          </button> Email is invalid
+        </div>
+        </div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="isLoading || form.invalid" type="submit" class="btn btn-primary">Signup <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+          <i *ngIf="isLoading" class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+        </div>
+        <!-- message -->
+        <div *ngIf="error" class="row mt-2">
+          <div class=" col-sm-6">
+            <div class="alert alert-success alert-danger fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button> {{error}}
+            </div>
+          </div>
+        </div>
+        <a [routerLink]="['/login']" routerLinkActive="active">Click here to Login</a>
+        </form>
+        </div>

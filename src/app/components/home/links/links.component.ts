@@ -61,7 +61,7 @@ export class LinksComponent implements OnInit, OnChanges {
   deleteLink(): void {
     this.linkService.deleteLink(this.linkToDelete._id)
       .subscribe(data => {
-        let indexDeleted = this.links.findIndex(link => link._id === this.linkToDelete._id);
+        const indexDeleted = this.links.findIndex(link => link._id === this.linkToDelete._id);
         this.totalClicks -= this.links[indexDeleted].clicks;
         // this.links.splice( indexDeleted, 1);
         // this.totalCount--;

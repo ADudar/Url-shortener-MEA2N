@@ -6,7 +6,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 @Component({
   selector: 'app-link-form',
   templateUrl: './link-form.component.html',
-  styleUrls: ['./link-form.component.css']
+  styles: [``]
 })
 export class LinkFormComponent {
 
@@ -49,7 +49,7 @@ export class LinkFormComponent {
 
   EncodeURL(): string {
     let text = '';
-    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 6; i++) {
       text += str.charAt(Math.floor(Math.random() * str.length));
     }

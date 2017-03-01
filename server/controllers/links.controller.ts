@@ -6,17 +6,18 @@ import { Link } from '../models/link';
 (<any>mongoose).Promise = q.Promise;
 import { Request, Response, NextFunction } from 'express';
 
-export function addLink(req : Request, res: Response) {
+export function addLink(req: Request, res: Response) {
   const link = new Link({
     longUrl: req.body.longUrl,
     shortUrl: req.body.shortUrl,
     description: req.body.description,
     tags: req.body.tags,
-    clicks: req.body.clicks,
     created: Date.now(),
     user_id: Types.ObjectId(req.body.user_id)
-
   }); // create a new instance of the Link model
+if (!req.body.user_id) {
+  throw new Error('user_id is required');
+}
   link.save()
     .then(result => {
       res.json({
@@ -26,7 +27,7 @@ export function addLink(req : Request, res: Response) {
       });
     })
     .catch(err => {
-      res.json({
+      res.status(400).json({
         success: false,
         message: err.message
       });
@@ -78,8 +79,9 @@ export function getAllLinksWithTag(req: Request, res: Response, next: NextFuncti
       tags: req.query.tag
     }, function (err, links) {
       if (err) {
-        res.json({
-          success: false
+        res.status(500).json({
+          success: false,
+          message: err.message
         });
       } else {
         res.json(links);
@@ -109,7 +111,7 @@ export function updateLinkById(req: Request, resp: Response, next: NextFunction)
     },
     (err, res) => {
       if (err) {
-        resp.json({
+        resp.status(500).json({
           success: false,
           message: err.message
         });
@@ -125,9 +127,13 @@ export function updateLinkById(req: Request, resp: Response, next: NextFunction)
 export function deleteLinkById(req: Request, res: Response, next: NextFunction) {
   Link.findByIdAndRemove(req.params.link_id, function (err, link) {
     if (err) {
-      res.send(err);
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
     }
     res.json({
+      success: true,
       message: 'Link deleted'
     });
   });
@@ -137,16 +143,21 @@ export function getLongUrl(req: Request, res: Response, next: NextFunction) {
     'shortUrl': req.params.id
   }, (err, link: any) => {
     if (err) {
-      res.json(err);
+      res.status(500).json({
+              success: false,
+              message: err.message
+      });
     }
     if (link === null) {
       res.json({
+        success: false,
         error: 'url not find'
       });
     } else {
       link.clicks++;
       link.save();
       res.json({
+        success: true,
         url: link.longUrl
       });
     }
@@ -157,9 +168,15 @@ export function getLinkByShortUrl(req, res) {
     shortUrl: req.params.shortUrl
   }, function (err, link) {
     if (err) {
-      res.send(err);
+      res.status(500).json({
+        success : false,
+        message: err.message
+      });
     }
-    res.json(link);
+    res.json({
+      success: true,
+      link: link
+    });
   });
 }
 

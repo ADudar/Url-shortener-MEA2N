@@ -20,7 +20,9 @@ export const linkSchema = new Schema({
 
   },
   description: {
-    type: String
+    type: String,
+    required: [true, 'description must exist'],
+
   },
   tags: {
     type: Array,

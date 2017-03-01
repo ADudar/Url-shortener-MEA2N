@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { contentHeaders } from '../common/headers';
@@ -23,7 +23,7 @@ export class AuthenticationService {
   isLoggedIn(): boolean {
     if (tokenNotExpired()) {
       this.loggedIn = true;
-      let token = localStorage.getItem('id_token');
+      const token = localStorage.getItem('id_token');
       this.username = (new JwtHelper).decodeToken(token).username;
       this.user_id = (new JwtHelper).decodeToken(token).user_id;
       return true;
@@ -37,20 +37,19 @@ export class AuthenticationService {
   }
 
   authenticate(username, password, url, email = ''): Observable<any> {
-    let body = JSON.stringify({ username, password, email });
+    const body = JSON.stringify({ username, password, email });
     return this.http.post(url, body, { headers: contentHeaders })
       .map((response) => {
-        let token = response.json() && response.json().token;
+        const token = response.json() && response.json().token;
         if (token) {
           this.token = token;
           this.username = username;
           localStorage.setItem('id_token', token);
           this.loggedIn = true;
-          return response.json();
         } else {
           this.loggedIn = false;
-          return response.json();
         }
+          return response.json();
       });
   }
 

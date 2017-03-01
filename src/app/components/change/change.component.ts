@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-change',
   templateUrl: './change.component.html',
-  styleUrls: ['./change.component.css']
+  styles: [``]
 })
 export class ChangeComponent implements OnInit, OnDestroy {
   link: Link;

@@ -51,5 +51,5 @@ app.use(function (err: any, req, res, next) {
 // var port = process.env.PORT || config.port;
 
 // app.listen(port, () => console.log('Server started on port ' + port));
-
 export { app }
+// module.exports = app;

@@ -1,16 +1,18 @@
 <div class="login jumbotron center-block">
   <h2>Login</h2><br>
   <form name="form" (ngSubmit)="login()" #form="ngForm" novalidate>
-    <div class="form-group row"
-    [ngClass]="{  'has-danger': usernameField.touched && usernameField.invalid,
-                        'has-success' : usernameField.valid  }"
-                        >
+    <div class="form-group row" [ngClass]="{  'has-danger': usernameField.touched && usernameField.invalid,
+                        'has-success' : usernameField.valid  }">
       <label class="col-sm-2 col-form-label" for="username">Username</label>
       <div class="col-sm-10">
         <input type="text" required pattern="^[a-zA-Z0-9_.-]*$" [ngClass]="{  'form-control-danger': usernameField.touched && usernameField.invalid,
                       'form-control-success': usernameField.valid}" class="form-control" name="username" placeholder="Username"
           [(ngModel)]="username" #usernameField="ngModel" />
-        <div *ngIf="usernameField.touched && usernameField.invalid" class="alert alert-danger mt-1">Username is required</div>
+        <div *ngIf="usernameField.touched && usernameField.invalid" class="alert alert-success alert-danger fade show mt-1" role="alert">
+          <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Username is required
+        </div>
       </div>
 </div>
 <div class="form-group row" [ngClass]="{ 'has-danger': passwordField.touched && passwordField.invalid, 'has-success' : passwordField.valid  }">
@@ -19,7 +21,11 @@
     <input type="password" [ngClass]="{ 'form-control-danger': passwordField.touched && passwordField.invalid, 'form-control-success': passwordField.valid }"
       [(ngModel)]="password" #passwordField="ngModel" class="form-control" name="password" placeholder="Password" required
     />
-    <div *ngIf="passwordField.touched && passwordField.invalid" class="alert alert-danger mt-1">Password is required</div>
+    <div *ngIf="passwordField.touched && passwordField.invalid" class="alert alert-success alert-danger fade show mt-1" role="alert">
+      <button type="button" class="close" data-dismiss="alert" (click)="error=''" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+          </button> Password is required
+    </div>
   </div>
 </div>
 <div class="form-group">

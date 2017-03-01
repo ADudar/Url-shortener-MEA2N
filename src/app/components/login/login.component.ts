@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styles: [``]
 })
 
 export class LoginComponent {
@@ -27,11 +27,11 @@ export class LoginComponent {
       .subscribe(result => {
         if (result.success === true) {
           this.router.navigate(['/home']);
-        } else {
-          this.error = result.message;
-          this.isLoading = false;
         }
+      },
+      err => {
+        this.error = err.json().message;
       });
-
+    this.isLoading = false;
   }
 }

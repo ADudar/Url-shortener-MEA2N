@@ -4,7 +4,11 @@ import { Link } from '../../models/link';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styles: [`
+  th,td {
+    word-break: break-all;
+}
+  `]
 })
 
 export class HomeComponent {

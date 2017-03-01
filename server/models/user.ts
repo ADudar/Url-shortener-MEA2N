@@ -44,9 +44,9 @@ userSchema.pre('save', function (next) {
     if (err) {
       return next(err);
     }
-    hash(user.password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
+    hash(user.password, salt, (error, hash) => {
+      if (error) {
+        return next(error);
       }
       user.password = hash;
       user.salt = salt;

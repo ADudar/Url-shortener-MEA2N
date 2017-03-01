@@ -5,7 +5,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styles: [``]
 })
 export class SignupComponent {
   username = '';
@@ -25,10 +25,12 @@ export class SignupComponent {
         if (result.success === true) {
           this.router.navigate(['/home']);
         } else {
-          this.error = result.message;
         }
+      },
+      error => {
+        this.error = error.json().message;
       }
       );
-        this.isLoading = false;
+    this.isLoading = false;
   }
 }

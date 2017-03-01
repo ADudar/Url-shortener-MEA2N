@@ -26,13 +26,13 @@ export function registerUser(req: Request, res: Response, next: NextFunction) {
       });
     } else
       if (user) {
-        return res.json({
+        return res.status(409).json({
           success: false,
           message: 'A user with that username or email already exists'
         });
       } else {
         const newUser = new User(req.body);
-        newUser.save((error, user) => {
+        newUser.save((error, doc) => {
           if (error) {
             return res.status(503).json({
               success: false,
@@ -43,7 +43,7 @@ export function registerUser(req: Request, res: Response, next: NextFunction) {
               success: true,
               token: jwt.sign({
                 username: req.body.username,
-                user_id: user._id
+                user_id: doc._id
               },
                 secret, {
                   expiresIn: '1h'
@@ -58,7 +58,7 @@ export function registerUser(req: Request, res: Response, next: NextFunction) {
 export function loginUser(req: Request, res: Response, next: NextFunction) {
 
   if (!req.body.username || !req.body.password) {
-    return res.status(400).send('You must send the username and the password');
+    return res.status(400).json({success: false, message: 'You must send the username and the password'});
   }
   User.findOne({
     username: req.body.username
@@ -71,7 +71,7 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
         });
       }
       if (!user) {
-        res.json({
+        res.status(400).json({
           success: false,
           message: 'User not found'
         });
@@ -90,7 +90,7 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
               )
             });
           } else {
-            res.json({
+            res.status(400).json({
               success: false,
               message: 'Wrong password'
             });

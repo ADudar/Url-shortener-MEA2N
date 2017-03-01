@@ -6,7 +6,12 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.css']
+  styles: [`
+    .break-word {
+        word-break: break-all;
+    word-wrap: break-word;
+}
+  `]
 })
 export class DetailsComponent implements OnInit {
   link: Link;
@@ -22,9 +27,11 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => this.linkService.getLinkByShortUrl(params['shortUrl']))
-      .subscribe(link => {
+      .subscribe(data => {
         this.isLoading = false;
-        this.link = link;
+        if (data.success) {
+        this.link = data.link;
+        }
         this.processTags();
       });
   }
