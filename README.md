@@ -1,4 +1,7 @@
 Example of Url shortener with MEAN stack
 
 npm i
-npm start
+<br>
+npm run server
+<br>
+npm run client
